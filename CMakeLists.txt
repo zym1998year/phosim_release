@@ -63,17 +63,15 @@ configure_file(
 )
 include_directories(${CMAKE_BINARY_DIR}/generated/source/raytrace)
 
-# Subdirectories (skeleton: only raytrace + ancillary in this stage;
-# trim/e2adc/instrument/atmosphere/catalogtools/validation are TODO in
-# follow-up commits)
+# CTest must be enabled before any add_subdirectory that calls add_test()
+enable_testing()
+
+# Subdirectories - all modules enabled
 add_subdirectory(source/ancillary)
 add_subdirectory(source/raytrace)
-# add_subdirectory(source/trim)            # TODO
-# add_subdirectory(source/e2adc)           # TODO
-# add_subdirectory(source/instrument)      # TODO
-# add_subdirectory(source/atmosphere)      # TODO
-# add_subdirectory(source/catalogtools)    # TODO
-# add_subdirectory(validation)             # TODO
-
-# CTest
-enable_testing()
+add_subdirectory(source/trim)
+add_subdirectory(source/e2adc)
+add_subdirectory(source/instrument)
+add_subdirectory(source/atmosphere)
+add_subdirectory(source/catalogtools)
+add_subdirectory(validation)
