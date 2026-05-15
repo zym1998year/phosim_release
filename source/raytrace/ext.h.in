@@ -1,0 +1,6 @@
+#cmakedefine PHOSIM_EXT
+#ifdef PHOSIM_EXT
+#define EXT
+#else
+#undef EXT
+#endif

@@ -1,0 +1,4 @@
+# bin/setup - compatibility shim
+# Modern PhoSim builds use CMake; this file exists for legacy scripts that
+# source bin/setup expecting PYTHON to be defined.
+export PYTHON="$(which python3 || which python)"
