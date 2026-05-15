@@ -1,0 +1,41 @@
+# Enforce LF line endings for source and build files to prevent CRLF
+# breaking bash scripts and CMake on Windows checkouts. Binary files are
+# explicitly marked to bypass text/EOL normalization.
+
+* text=auto eol=lf
+
+# Source code
+*.c     text eol=lf
+*.cpp   text eol=lf
+*.h     text eol=lf
+*.hpp   text eol=lf
+
+# Build system
+*.cmake text eol=lf
+*.in    text eol=lf
+CMakeLists.txt   text eol=lf
+Makefile         text eol=lf
+Makefile.orig    text eol=lf
+configure        text eol=lf
+configure.orig   text eol=lf
+
+# Shell / Python
+*.sh    text eol=lf
+*.py    text eol=lf
+*.bat   text eol=crlf
+
+# Documentation
+*.md    text eol=lf
+*.txt   text eol=lf
+README  text eol=lf
+
+# Data / parameter files (PhoSim instance catalogs etc.)
+*.pars   text eol=lf
+*.cat    text eol=lf
+
+# Binary tarballs and large data
+*.tar    binary
+*.tar.gz binary
+*.gz     binary
+*.fits   binary
+*.fits.gz binary
