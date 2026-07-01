@@ -150,17 +150,13 @@ void StarObject::GenerateGalacticStars()
   if ( !pCGParams->fSEDCatalogCollectionPath.empty() ) {
     std::string CK04catalogPath = 
       pCGParams->fSEDCatalogCollectionPath +  "/CastelliKurucz2004";
-    DIR* dir = opendir(CK04catalogPath.c_str());
-    if (dir) {
+    if (std::filesystem::is_directory(CK04catalogPath)) {
       /* Directory exists. */
       hasCK04Catalog = true;
-      closedir(dir);
-      std::string K93catalogPath = pCGParams->fSEDCatalogCollectionPath + 
+      std::string K93catalogPath = pCGParams->fSEDCatalogCollectionPath +
         "/Kurucz1993";
-      DIR* dir = opendir(K93catalogPath.c_str());
-      if (dir) {
+      if (std::filesystem::is_directory(K93catalogPath)) {
         hasK93Catalog = true;
-        closedir(dir);
       }
     }
   

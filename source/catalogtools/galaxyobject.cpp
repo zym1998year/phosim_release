@@ -77,11 +77,9 @@ void GalaxyObject::GenerateComplexGalaxiesForCells()
   if ( !pCGParams->fSEDCatalogCollectionPath.empty() ) {
     std::string PopStarKcatalogPath = 
       pCGParams->fSEDCatalogCollectionPath +  "/POPSTARKroupa";
-    DIR* dir = opendir(PopStarKcatalogPath.c_str());
-    if (dir) {
+    if (std::filesystem::is_directory(PopStarKcatalogPath)) {
       /* Directory exists. */
       hasPopStarKCatalog = true;
-      closedir(dir);
     }
     else{
       std::cout << "****************************************************"

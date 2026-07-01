@@ -16,6 +16,8 @@
 /// restrictions.  See COPYING for details.
 ///
 
+#include "phosim_compat.h"
+
 int Image::domeSeeing(Vector *angle, Photon *aph) {
 
     double phi, r;
@@ -3326,7 +3328,7 @@ int Image::rejectScatterAtmosphere(double bAngle, Photon *aph) {
 }
 
 
-void __attribute__ ((noinline)) Image::gaussianXY(Vector *newPosition, Vector oldPosition, float scale, Photon *aph) {
+PHOSIM_NOINLINE void Image::gaussianXY(Vector *newPosition, Vector oldPosition, float scale, Photon *aph) {
 
     double pair;
 
@@ -3336,34 +3338,34 @@ void __attribute__ ((noinline)) Image::gaussianXY(Vector *newPosition, Vector ol
 
 }
 
-int __attribute__ ((noinline)) Image::inBounds(TwoVectorInt *position) {
+PHOSIM_NOINLINE int Image::inBounds(TwoVectorInt *position) {
 
     if ((position->x >= minx) && (position->y >= miny) &&
         (position->x <= maxx) && (position->y <= maxy)) return(1); else return(0);
 
 }
 
-int __attribute__ ((noinline)) Image::inBoundsDrift(TwoVectorInt *position) {
+PHOSIM_NOINLINE int Image::inBoundsDrift(TwoVectorInt *position) {
 
     if ((position->x >= minxDrift) && (position->y >= minyDrift) &&
         (position->x <= maxxDrift) && (position->y <= maxyDrift)) return(1); else return(0);
 
 }
 
-int __attribute__ ((noinline)) Image::inBoundsBuffer(TwoVectorInt *position, int buffer) {
+PHOSIM_NOINLINE int Image::inBoundsBuffer(TwoVectorInt *position, int buffer) {
 
     if ((position->x >= minx-buffer) && (position->y >= miny-buffer) &&
         (position->x <= maxx+buffer) && (position->y <= maxy+buffer)) return(1); else return(0);
 
 }
 
-void __attribute__ ((noinline)) Image::diagnosticCount(long ray, int count) {
+PHOSIM_NOINLINE void Image::diagnosticCount(long ray, int count) {
 
      if (ray>0)  if ((ray % 1000)==0) state.diagnosticCounter[count]++;
 
 }
 
-void __attribute__ ((noinline)) Image::backgroundProbCount(int bindex, int backgroundProbOk, int ssource) {
+PHOSIM_NOINLINE void Image::backgroundProbCount(int bindex, int backgroundProbOk, int ssource) {
 
     if ((sources.type[ssource] < 9) && (backgroundProbOk)) {
         state.bpRej[bindex] += 1;

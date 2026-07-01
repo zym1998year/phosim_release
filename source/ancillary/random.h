@@ -47,7 +47,7 @@ typedef uint8_t  Uint8;
 const Uint32 uint32_MAX = 0xFFFFFFFFU;
 
 #else // for all other compilers, standard-compilant includes
-#include <cstdint.h>
+#include <cstdint>
 
 typedef std:: int64_t  Int64;
 typedef std::uint64_t Uint64;
@@ -58,14 +58,14 @@ typedef std::uint16_t Uint16;
 typedef std:: int8_t   Int8;
 typedef std::uint8_t  Uint8;
 
-const Uint32 uint32_MAX = std::uint32_MAX;
+const Uint32 uint32_MAX = UINT32_MAX;
 #endif
 
 #include <time.h>
 
 #define PHOSIM_RANDOM_ALIGN 256
 
-class Random {
+class alignas(PHOSIM_RANDOM_ALIGN) Random {
 
 public:
 
@@ -123,6 +123,6 @@ public:
     void setSeed32Correl(Uint32 seed);
 
 
-} __attribute__ ((aligned (PHOSIM_RANDOM_ALIGN)));
+};
 
 #endif

@@ -63,6 +63,14 @@ configure_file(
 )
 include_directories(${CMAKE_BINARY_DIR}/generated/source/raytrace)
 
+# phosim_compat.h generation (PHOSIM_NOINLINE and other compiler-portability macros)
+configure_file(
+    ${CMAKE_SOURCE_DIR}/cmake/phosim_compat.h.in
+    ${CMAKE_BINARY_DIR}/generated/phosim_compat.h
+    @ONLY
+)
+include_directories(${CMAKE_BINARY_DIR}/generated)
+
 # CTest must be enabled before any add_subdirectory that calls add_test()
 enable_testing()
 

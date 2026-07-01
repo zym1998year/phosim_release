@@ -22,7 +22,7 @@
 #include <iomanip>
 #include <algorithm>    // std::min_element, std::max_element
 #include <sstream>
-#include <dirent.h>     // UIsed to check if catalog dirrctory exists.
+#include <filesystem>   // std::filesystem::is_directory: check if catalog dir exists.
 
 #include "sphericalcell.h"
 #include "../ancillary/readtext.h"

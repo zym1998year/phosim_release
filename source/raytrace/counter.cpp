@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "sys/time.h"
+#include <chrono>
 #include "constants.h"
 #include "counter.h"
 
@@ -36,9 +36,7 @@ void counterInit(Clog *counterLog) {
     counterLog->removed = 0;
     counterLog->removed_dt = 0;
     counterLog->totalPhoton = 0;
-    struct timeval tim;
-    gettimeofday(&tim, NULL);
-    counterLog->previousWallTime = tim.tv_sec + (tim.tv_usec/1000000.0);
+    counterLog->previousWallTime = std::chrono::duration<double>(std::chrono::steady_clock::now().time_since_epoch()).count();
     counterLog->previousCPUTime = TicksToSec(GetNewTick());
     double val1, val2;
     val1 = counterLog->previousWallTime;
@@ -84,9 +82,7 @@ void counterCheck(Clog *counterLog, int sourcecounter, char *name) {
     //printf ("RSS Limit = %llu and %llu max\n", limit.rlim_cur, limit.rlim_max);
 
     newCpuTime = TicksToSec(clock());
-    struct timeval tim;
-    gettimeofday(&tim, NULL);
-    newWallTime = tim.tv_sec + (tim.tv_usec/1000000.0);
+    newWallTime = std::chrono::duration<double>(std::chrono::steady_clock::now().time_since_epoch()).count();
     rate = static_cast<int>(counterLog->totalPhoton/(newWallTime-counterLog->previousWallTime + 1e-2));
 
     if (sourcecounter < 1000) snprintf(sourceString, sizeof(sourceString), "%7d", sourcecounter);

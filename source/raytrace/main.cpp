@@ -53,12 +53,15 @@
 // }
 
 #include <stdio.h>
-#include <execinfo.h>
 #include <signal.h>
 #include <stdlib.h>
+#ifndef _WIN32
+#include <execinfo.h>
 #include <unistd.h>
+#endif
 
 void handler(int sig) {
+#ifndef _WIN32
   void *array[10];
   size_t size;
 
@@ -68,6 +71,10 @@ void handler(int sig) {
   // print out all the frames to stderr
   fprintf(stderr, "Error: signal %d:\n", sig);
   backtrace_symbols_fd(array, size, STDERR_FILENO);
+#else
+  // execinfo/backtrace is glibc-specific; on Windows just report and exit.
+  fprintf(stderr, "Error: signal %d\n", sig);
+#endif
   exit(1);
 }
 
