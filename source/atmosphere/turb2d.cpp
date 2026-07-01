@@ -215,11 +215,11 @@ void Atmosphere::turb2d(long seed, double see5, double outerx, double outers,
         }
 
         // inverse fft
-        pthread_mutex_lock(&lock);
+        lock.lock();
         inverseFFT(nx, ny, out_full, inc_full);
         inverseFFT(nx, ny, out_high, inc_high);
         inverseFFT(nx, ny, out_low, inc_low);
-        pthread_mutex_unlock(&lock);
+        lock.unlock();
 
 
         for (int i=0; i < N; i++) {

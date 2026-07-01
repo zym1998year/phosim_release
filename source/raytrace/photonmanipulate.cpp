@@ -1509,13 +1509,13 @@ void Image::atmosphereDiffraction (Vector *angle, Photon *aph) {
         }
     }
 
-    pthread_mutex_lock(&lock.lock1);
+    lock.lock1.lock();
     pb = fftw_plan_dft_2d(SCREEN_SIZE, SCREEN_SIZE, screen.inscreen + index, screen.outscreen + index, FFTW_FORWARD, FFTW_ESTIMATE);
-    pthread_mutex_unlock(&lock.lock1);
+    lock.lock1.unlock();
     fftw_execute(pb);
-    pthread_mutex_lock(&lock.lock3);
+    lock.lock3.lock();
     fftw_destroy_plan(pb);
-    pthread_mutex_unlock(&lock.lock3);
+    lock.lock3.unlock();
 
     double total = 0.0;
     double value;

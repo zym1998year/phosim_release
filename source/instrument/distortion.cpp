@@ -18,8 +18,9 @@
 #include <stdlib.h>
 #include <cmath>
 #include <math.h>
-#include <unistd.h>
-#include <pthread.h>
+#include <thread>
+#include <mutex>
+#include <chrono>
 #include <atomic>
 
 #include "distortion.h"
@@ -264,7 +265,7 @@ double zernike(double r, double phi, int n) {
 int nodeperthread = 256;
 int openthread[100];
 int openthreads = 0;
-pthread_mutex_t lock1;
+std::mutex lock1;
 
 struct dsstruct {
     double *exx;
@@ -656,10 +657,10 @@ void* elastic(void *voidArgs) {
     }
     }
 
-    pthread_mutex_lock(&lock1);
+    lock1.lock();
     openthreads--;
     openthread[ar->nt] = 0;
-    pthread_mutex_unlock(&lock1);
+    lock1.unlock();
     return NULL;
 
 }
@@ -694,16 +695,14 @@ int distortion(int surfaceIndex, int secondSurfaceIndex, long N, double tol, int
     // dsstruct ds;
 
     ds.control = control;
-    pthread_t *thread;
     arstruct *args;
     long numthread = nthread;
-    thread = (pthread_t*)malloc(numthread*sizeof(pthread_t));
+    std::vector<std::thread> thread(numthread);
     args = (arstruct*)malloc(numthread*sizeof(arstruct));
     openthreads = 0;
     for (int i = 0; i < numthread; i++) {
         openthread[i] = 0;
     }
-    pthread_mutex_init(&lock1, NULL);
 
     ds.x = static_cast<double*>(malloc(N*N*N*sizeof(double)));
     ds.y = static_cast<double*>(malloc(N*N*N*sizeof(double)));
@@ -2327,10 +2326,10 @@ int distortion(int surfaceIndex, int secondSurfaceIndex, long N, double tol, int
             for (int i = 0; i < numthread; i++) {
                 if (openthread[i]==0) bestthread = i;
             }
-            pthread_mutex_lock(&lock1);
+            lock1.lock();
             openthread[bestthread] = 1;
             openthreads++;
-            pthread_mutex_unlock(&lock1);
+            lock1.unlock();
             for (long kkk = 0; kkk < ln2; kkk++) {
 
 
@@ -2351,16 +2350,16 @@ int distortion(int surfaceIndex, int secondSurfaceIndex, long N, double tol, int
             args[bestthread].cc = ln2;
             args[bestthread].nt = bestthread;
             (*diagCall)+=nodeperthread;
-            pthread_create(&thread[bestthread], NULL, elastic, &args[bestthread]);
-            pthread_detach(thread[bestthread]);
+            thread[bestthread] = std::thread(elastic, &args[bestthread]);
+            thread[bestthread].detach();
             while (openthreads >= numthread) {
-                usleep(10);
+                std::this_thread::sleep_for(std::chrono::microseconds(10));
             }
 
         }
 
         while (openthreads != 0) {
-            usleep(10);
+            std::this_thread::sleep_for(std::chrono::microseconds(10));
         }
 
         ds.vmag = ds.vmag/ds.vc;

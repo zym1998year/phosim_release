@@ -1136,8 +1136,6 @@ int Image::telSetup () {
     }
 
     fprintf(stdout, "Diffracting.\n");
-    pthread_mutex_init(&lock.lock1, NULL);
-    pthread_mutex_init(&lock.lock3, NULL);
              {
 
         Photon photon;

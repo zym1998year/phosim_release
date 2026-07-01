@@ -17,6 +17,7 @@
 #include "atmosphere/atmosphere.h"
 #include "atmosphere/operator.cpp"
 #include "raytrace/parameters.h"
+#include <thread>
 
 int main(void) {
 
@@ -1146,11 +1147,9 @@ int main(void) {
 
         faptr = fopen(outputfilename, "a+");
         {
-            pthread_mutex_init(&atmosphere.lock, NULL);
-            pthread_t *thread;
             thread_args *args;
             long numthread = atmosphere.numlevel;
-            thread = (pthread_t*)malloc(numthread*sizeof(pthread_t));
+            std::vector<std::thread> thread(numthread);
             args = (thread_args*)malloc(numthread*sizeof(thread_args));
             for (int i = 0; i < atmosphere.numlevel; i++) {
                 char tempstring2[4096];
@@ -1168,13 +1167,13 @@ int main(void) {
                 args[i].resample = ATM_RESAMPLE;
                 strcpy(args[i].name,tempstring2);
                 args[i].N_size = SCREEN_SIZE;
-                pthread_create(&thread[i], NULL, &Atmosphere::threadFunction, &args[i]);
+                thread[i] = std::thread(&Atmosphere::threadFunction, &args[i]);
                 fprintf(faptr, "atmospherefile %d atmospherescreen_%s_%d\n", i, obshistid.c_str(), i);
-                if (threadFlag==0) pthread_join(thread[i], NULL);
+                if (threadFlag==0) thread[i].join();
             }
             if (threadFlag==1) {
                 for (int i = 0; i < atmosphere.numlevel; i++) {
-                    pthread_join(thread[i], NULL);
+                    thread[i].join();
                 }
             }
         }

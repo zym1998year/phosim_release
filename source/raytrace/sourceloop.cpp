@@ -17,20 +17,17 @@
 /// restrictions.  See COPYING for details.
 ///
 
-#include <pthread.h>
-#include <unistd.h>
+#include <thread>
+#include <chrono>
 
 int Image::sourceLoop() {
 
     char tempstring[4096];
     int sourceCounter;
-    pthread_t *thread;
+    std::vector<std::thread> thread(numthread);
     thread_args *args;
-    timespec interval;
-    interval.tv_sec = 0;
 
     //    OPTIMIZATION INITIALIZATION
-    thread = (pthread_t*)malloc(numthread*sizeof(pthread_t));
     args = (thread_args*)malloc(numthread*sizeof(thread_args));
     openthread = static_cast<int*>(malloc(numthread*sizeof(int)));
     state.surfaceLimit = (natmospherefile + 1)*6 + nsurf*2 + 3;
@@ -59,14 +56,7 @@ int Image::sourceLoop() {
     counterInit(&state.counterLog);
     counterClear(&state.globalLog);
 
-    pthread_mutex_init(&lock.lock9, NULL);
-    pthread_mutex_init(&lock.lock10, NULL);
-    if (opdfile == 1) pthread_mutex_init(&lock.lock4, NULL);
-    if (opdfile == 1) pthread_mutex_init(&lock.lock5, NULL);
-    if (opdfile == 1) pthread_mutex_init(&lock.lock6, NULL);
-    if (opdfile == 1) pthread_mutex_init(&lock.lock7, NULL);
-    pthread_mutex_init(&lock.lock8, NULL);
-    if (opdfile == 1) pthread_cond_init(&lock.cond, NULL);
+    // std::mutex / std::condition_variable members are default-constructed (no init needed)
     if (opdfile == 1) {
         remain = 0;
         sourceperthread = 1;
@@ -158,9 +148,7 @@ int Image::sourceLoop() {
                             // int state, type, status=0;
                             // status=pthread_setcancelstate(PTHREAD_CANCEL_DISABLE,&state);
                             // status=pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED,&type);
-                            interval.tv_sec=floor(pauseTime / 1000000000);
-                            interval.tv_nsec=((pauseTime / 1000000000) - floor(pauseTime/1000000000))*1000000000;
-                            nanosleep(&interval,NULL);
+                            std::this_thread::sleep_for(std::chrono::nanoseconds(static_cast<long long>(pauseTime)));
                             count++;
                             // pthread_setcancelstate(state,&state);
                             // pthread_setcanceltype(type,&type);
@@ -171,7 +159,7 @@ int Image::sourceLoop() {
                         }
                         //                        printf("%d %lf\n",count,pauseTime/1000000000);
 
-                        pthread_mutex_lock(&lock.lock8);
+                        lock.lock8.lock();
                         int bestthread = sourceperthread + 1;
                         for (int i = 0; i < numthread; i++) {
                             if ((openthread[i] < sourceperthread) && (openthread[i] < bestthread)) {
@@ -185,7 +173,7 @@ int Image::sourceLoop() {
                         args[subsource].ssource[openthread[subsource] - 1] = source;
                         int ok = 0;
                         if (openthread[subsource] == sourceperthread) ok=1;
-                        pthread_mutex_unlock(&lock.lock8);
+                        lock.lock8.unlock();
 
                         if (ok) {
                             args[subsource].instance = this;
@@ -201,16 +189,11 @@ int Image::sourceLoop() {
                                 }
                             }
                             if (opdfile == 0) {
-                                // pthread_attr_t attr;
-                                // pthread_attr_init(&attr);
-                                // pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
-                                // pthread_create(&thread[subsource], &attr, &Image::threadFunction, &args[subsource]);
-                                // pthread_attr_destroy(&attr);
-                                pthread_create(&thread[subsource], NULL, &Image::threadFunction, &args[subsource]);
-                                pthread_detach(thread[subsource]);
+                                thread[subsource] = std::thread(&Image::threadFunction, &args[subsource]);
+                                thread[subsource].detach();
 
                             } else {
-                                pthread_create(&thread[subsource], NULL, &Image::threadFunction, &args[subsource]);
+                                thread[subsource] = std::thread(&Image::threadFunction, &args[subsource]);
                             }
                             //if (opdfile == 0) pthread_detach(thread[subsource]);
                         }
@@ -218,8 +201,8 @@ int Image::sourceLoop() {
                             if ((((sourceCounter - 1) % numthread) == (numthread - 1)) ||
                                 (source == nsource - 1)) {
                                 for (int ss = 0; ss < numthread; ss++) {
-                                    if (openthread[ss] > 0) {
-                                        pthread_join(thread[ss], NULL);
+                                    if (openthread[ss] > 0 && thread[ss].joinable()) {
+                                        thread[ss].join();
                                     }
                                 }
                             }
@@ -248,14 +231,12 @@ int Image::sourceLoop() {
                 args[i].instance = this;
                 args[i].thread = i;
                 args[i].runthread = openthread[i];
-                pthread_create(&thread[i], NULL, &Image::threadFunction, &args[i]);
-                pthread_detach(thread[i]);
+                thread[i] = std::thread(&Image::threadFunction, &args[i]);
+                thread[i].detach();
             }
         }
         while (openthreads != 0) {
-            interval.tv_sec=floor(pauseTime / 1000000000);
-            interval.tv_nsec=((pauseTime / 1000000000) - floor(pauseTime/1000000000))*1000000000;
-            nanosleep(&interval,NULL);
+            std::this_thread::sleep_for(std::chrono::nanoseconds(static_cast<long long>(pauseTime)));
         }
 
         // COSMIC RAYS

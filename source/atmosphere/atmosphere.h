@@ -19,6 +19,7 @@
 #include <sstream>
 #include <vector>
 #include <stdexcept>
+#include <mutex>
 
 #include "raytrace/helpers.h"
 #include "ancillary/random.h"
@@ -46,7 +47,7 @@ class Atmosphere {
     std::vector<float> altitudes;
     std::vector<float> jests;
     Random random;
-    pthread_mutex_t lock;
+    std::mutex lock;
     Air air;
 
     void createAtmosphere(float monthnum, float constrainseeing, const std::string & outputfilename, std::vector<int> & cloudscreen, long seed, double tai, double *tseeing, double latitude, double oceanDistance, double humidity, double temperature, double pressure, double groundlevel, double longitude, double waterPressure, double exosphereTemperature);

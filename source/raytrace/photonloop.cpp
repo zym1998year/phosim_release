@@ -30,8 +30,7 @@ void* Image::threadFunction(void *voidArgs) {
     // pthread_setcanceltype(type,&type);
     // pthread_testcancel();
     //pthread_detach(pthread_self());
-    pthread_exit(NULL);
-    //    return NULL;
+    return NULL;
 }
 
 void Image::photonLoop(int ssource, int thread, int finish) {
@@ -96,7 +95,7 @@ void Image::photonLoop(int ssource, int thread, int finish) {
     if (telconfig != 0 && sources.type[ssource] != 0) photonSource = 0;
 
     if (opdfile == 1) {
-        pthread_mutex_lock(&lock.lock4);
+        lock.lock4.lock();
         lock4 = 1;
         for (int surfIdx = 0; surfIdx < nsurf; surfIdx++) {
             surface.innerRadius[surfIdx] = 0.0;
@@ -939,24 +938,25 @@ void Image::photonLoop(int ssource, int thread, int finish) {
                             state.cy[ssource] = position.y;
                             state.cz[ssource] = position.z;
                             state.r0[ssource] = sqrt(pow(state.epR[ssource], 2) + pow(state.cx[ssource], 2) + pow(state.cy[ssource], 2));
-                            pthread_mutex_unlock(&lock.lock4);
+                            lock.lock4.unlock();
                             lock4 = 0;
-                            pthread_mutex_lock(&lock.lock6);
-                            remain--;
-                            if (remain == 0) {
-                                pthread_cond_broadcast(&lock.cond);
-                            } else {
-                                while (remain != 0) {
-                                    pthread_cond_wait(&lock.cond, &lock.lock6);
+                            {
+                                std::unique_lock<std::mutex> ul6(lock.lock6);
+                                remain--;
+                                if (remain == 0) {
+                                    lock.cond.notify_all();
+                                } else {
+                                    // predicate form preserves the original wait-condition
+                                    // loop and guards against spurious wakeups
+                                    lock.cond.wait(ul6, [&]{ return remain == 0; });
                                 }
                             }
-                            pthread_mutex_unlock(&lock.lock6);
-                            pthread_mutex_lock(&lock.lock7);
+                            lock.lock7.lock();
                             for (int surfIdx = 0; surfIdx < nsurf; surfIdx++) {
                                 surface.innerRadius[surfIdx] = surface.innerRadius0[surfIdx];
                                 surface.asphere(surfIdx, SURFACE_POINTS);
                             }
-                            pthread_mutex_unlock(&lock.lock7);
+                            lock.lock7.unlock();
                         }
                         //solve line-sphere intersection analytically
                         double ocx = position.x - state.cx[ssource];
@@ -1109,10 +1109,10 @@ void Image::photonLoop(int ssource, int thread, int finish) {
                         int xx = floor(photon.opdx/maxr/2*(OPD_SCREEN_SIZE - 1.0) + OPD_SCREEN_SIZE/2.0);
                         int yy = floor(photon.opdy/maxr/2*(OPD_SCREEN_SIZE - 1.0) + OPD_SCREEN_SIZE/2.0);
                             if (xx >= 0 && xx < OPD_SCREEN_SIZE && yy >= 0 && yy < OPD_SCREEN_SIZE) {
-                                pthread_mutex_lock(&lock.lock5);
+                                lock.lock5.lock();
                                 *(state.opd + ssource*OPD_SCREEN_SIZE*OPD_SCREEN_SIZE + OPD_SCREEN_SIZE*yy + xx) += photon.op;
                                 *(state.opdcount + ssource*OPD_SCREEN_SIZE*OPD_SCREEN_SIZE + OPD_SCREEN_SIZE*yy + xx) += 1;
-                                pthread_mutex_unlock(&lock.lock5);
+                                lock.lock5.unlock();
                             }
                         }
                     }
@@ -1218,12 +1218,12 @@ void Image::photonLoop(int ssource, int thread, int finish) {
     counterAdd(&localLog, &state.counterLog);
     counterAdd(&localLog, &state.globalLog);
 
-    if (lock4 == 1) pthread_mutex_unlock(&lock.lock4);
+    if (lock4 == 1) lock.lock4.unlock();
     if (finish != 0) {
-        pthread_mutex_lock(&lock.lock8);
+        lock.lock8.lock();
         openthread[thread] = 0;
         openthreads -= finish;
-        pthread_mutex_unlock(&lock.lock8);
+        lock.lock8.unlock();
     }
 
 }

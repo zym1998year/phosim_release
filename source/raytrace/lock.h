@@ -14,17 +14,20 @@
 /// restrictions.  See COPYING for details.
 ///
 
+#include <mutex>
+#include <condition_variable>
+
 struct Lock {
-    pthread_mutex_t lock1;
-    pthread_mutex_t lock2;
-    pthread_mutex_t lock3;
-    pthread_mutex_t lock4;
-    pthread_mutex_t lock5;
-    pthread_mutex_t lock6;
-    pthread_mutex_t lock7;
-    pthread_mutex_t lock8;
-    pthread_mutex_t lock9;
-    pthread_mutex_t lock10;
-    pthread_mutex_t lock11;
-    pthread_cond_t cond;
+    std::mutex lock1;
+    std::mutex lock2;
+    std::mutex lock3;
+    std::mutex lock4;
+    std::mutex lock5;
+    std::mutex lock6;
+    std::mutex lock7;
+    std::mutex lock8;
+    std::mutex lock9;
+    std::mutex lock10;
+    std::mutex lock11;
+    std::condition_variable cond;
 };
