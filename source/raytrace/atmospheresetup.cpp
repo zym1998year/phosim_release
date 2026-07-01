@@ -20,6 +20,7 @@
 #include <stdlib.h>
 #include "ancillary/readtext.h"
 #include "constants.h"
+#include "phosim_compat.h"
 
 int Image::atmSetup () {
 

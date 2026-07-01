@@ -482,19 +482,19 @@ void Grating::saveCumulativeProbTableToFile(std::string InstrDir)
        // They will obviously have the same length. We could check that 
        // but why?
 
-       std::pair < float,float> cumulativeArray[pProbTableAngleOut->size()];
+       std::vector<std::pair<float, float>> cumulativeArray(pProbTableAngleOut->size());
 
        std::copy(pProbTableAngleOut->begin(), pProbTableAngleOut->end(), 
-		 cumulativeArray);
+		 cumulativeArray.begin());
        
        //Write out the the anglein and wavelegth indexes followed by the size of
        // the array of pairs, followed by the pair array contents
-       recordSize =   sizeof cumulativeArray;
+       recordSize =   static_cast<int>(cumulativeArray.size() * sizeof(std::pair<float, float>));
 
        tableFile.write((char*) &iAngleIn, sizeof(int) );
        tableFile.write((char*) &iWavelength, sizeof(int) );
        tableFile.write((char*) &recordSize, sizeof(int) );
-       tableFile.write((char *) &cumulativeArray, recordSize);
+       tableFile.write((char *) cumulativeArray.data(), recordSize);
        if (!tableFile) {
          std::cout << "Fatal-Data writes writes to " << gratingFileName 
                    << " Failed!" << std::endl;
@@ -586,8 +586,8 @@ bool Grating::loadCumulativeProbTable(std::string InstrDir)
     }
   
     int numPairs = recordSizeBytes / sizeof( std::pair< float,float > );
-    std::pair < float, float> tempCumulativeProbArray[numPairs];
-    tableFile.read( (char*) &tempCumulativeProbArray, recordSizeBytes);
+    std::vector<std::pair<float, float>> tempCumulativeProbArray(numPairs);
+    tableFile.read( (char*) tempCumulativeProbArray.data(), recordSizeBytes);
     if (!tableFile) {
       std::cout << "Fatal-Read of data from " << tableFileName 
                 << " Failed!" << std::endl;

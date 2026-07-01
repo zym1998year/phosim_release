@@ -18,7 +18,7 @@ endif()
 # Compiler flags
 if(MSVC)
     add_compile_options(/permissive- /EHsc /Zc:__cplusplus /utf-8 /DNOMINMAX)
-    add_compile_definitions(_CRT_SECURE_NO_WARNINGS NOMINMAX)
+    add_compile_definitions(_CRT_SECURE_NO_WARNINGS NOMINMAX _USE_MATH_DEFINES)
     if(PHOSIM_MSVC_FAST_FLOAT)
         add_compile_options($<$<CONFIG:Release>:/fp:fast>)
     else()

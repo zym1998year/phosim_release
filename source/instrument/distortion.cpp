@@ -1490,9 +1490,9 @@ int distortion(int surfaceIndex, int secondSurfaceIndex, long N, double tol, int
     // printf("Mean derivative A:  %e\n",meanDerivativeA);
     // printf("Mean derivative B:  %e\n",meanDerivativeB);
 
-    int aa[N];
-    double maxa[N];
-    double mina[N];
+    std::vector<int> aa(N);
+    std::vector<double> maxa(N);
+    std::vector<double> mina(N);
     for (long i=0;i<N;i++) {
         aa[i]=0;
         maxa[i]=0.0;

@@ -17,6 +17,8 @@
 ///
 
 #include "instrument.h"
+#include <vector>
+#include <array>
 
 
 
@@ -207,19 +209,19 @@ int main(void) {
     std::ofstream ofs(opticsFileName.c_str());
 
 
-    double minT[nsurf];
-    double maxT[nsurf];
-    double minA[nsurf];
-    double maxA[nsurf];
-    double minP[nsurf];
-    double maxP[nsurf];
-    int Tflag[nsurf];
-    int Aflag[nsurf];
-    int Pflag[nsurf];
-    double norm[nsurf];
-    double zernike[nsurf][NZERN];
-    double body[nsurf][6];
-    double bodyY[nsurf][6];
+    std::vector<double> minT(nsurf);
+    std::vector<double> maxT(nsurf);
+    std::vector<double> minA(nsurf);
+    std::vector<double> maxA(nsurf);
+    std::vector<double> minP(nsurf);
+    std::vector<double> maxP(nsurf);
+    std::vector<int> Tflag(nsurf, 0);
+    std::vector<int> Aflag(nsurf, 0);
+    std::vector<int> Pflag(nsurf, 0);
+    std::vector<double> norm(nsurf);
+    std::vector<std::array<double, NZERN>> zernike(nsurf);
+    std::vector<std::array<double, 6>> body(nsurf);
+    std::vector<std::array<double, 6>> bodyY(nsurf);
 
     for (long i=0; i < nsurf; i++) {
         for (long j = 0; j < 6; j++) {
@@ -377,9 +379,9 @@ int main(void) {
                 if (Pflag[s] == 1) distance += pow((pressure - pressureT)/
                                                    (maxP[s] - minP[s]), 2.0);
                 distance = sqrt(distance);
-                norm[s] += sqrt(Tflag[s]*Tflag[s] +
+                norm[s] += sqrt(static_cast<double>(Tflag[s]*Tflag[s] +
                                 Aflag[s]*Aflag[s] +
-                                Pflag[s]*Pflag[s]) - distance;
+                                Pflag[s]*Pflag[s])) - distance;
             }
         }
     }
@@ -498,9 +500,9 @@ int main(void) {
                     if (Pflag[s] == 1) distance += pow((pressure - pressureT)/
                                                        (maxP[s] - minP[s]), 2.0);
                     distance = sqrt(distance);
-                    value = sqrt(Tflag[s]*Tflag[s] +
+                    value = sqrt(static_cast<double>(Tflag[s]*Tflag[s] +
                                         Aflag[s]*Aflag[s] +
-                                        Pflag[s]*Pflag[s]) - distance;
+                                        Pflag[s]*Pflag[s])) - distance;
                     if (norm[s] != 0) {
                         value /= norm[s];
                     } else {

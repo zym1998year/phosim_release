@@ -422,7 +422,7 @@ void Air::opacitySetup(double zenith, double moonalt, double solaralt, std::vect
     }
 
     // new moon loop
-    double taumin[layers+1];
+    std::vector<double> taumin(layers+1);
     for (int l = -1 ; l < layers; l++) {
         taumin[l+1]=1e30;
     }

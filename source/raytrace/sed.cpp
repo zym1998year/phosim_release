@@ -13,6 +13,8 @@
 /// treat results with caution.
 ///
 
+#include "phosim_compat.h"
+
 void Observation::readSed(const std::string & filename, int mode) {
 
     long lsedptr;
