@@ -1,0 +1,67 @@
+name: macOS CI
+
+on:
+  push:
+    branches: [windows-msvc-port]
+  pull_request:
+    branches: [windows-msvc-port]
+
+defaults:
+  run:
+    shell: bash -el {0}
+
+jobs:
+  build-and-test:
+    runs-on: macos-14
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Miniconda
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          miniforge-version: latest
+          channels: conda-forge
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: mamba install -y cfitsio=4.4.0 fftw=3.3.10 zlib python=3.11 cmake ninja
+
+      - name: Configure
+        run: cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$CONDA_PREFIX"
+
+      - name: Build
+        run: cmake --build build --parallel
+
+      - name: CTest
+        run: |
+          ctest --test-dir build --output-on-failure -C Release
+
+      - name: Smoke test - examples/star (single process)
+        run: |
+          python phosim.py examples/star -c examples/nobackground -p 1 -t 1
+
+      - name: Assert FITS output produced
+        run: |
+          shopt -s nullglob
+          fits_files=(output/*.fits.gz output/*.fits)
+          if [ ${#fits_files[@]} -eq 0 ]; then
+            echo "No FITS output found in output/" >&2
+            exit 1
+          fi
+          echo "Found FITS output:"
+          printf '%s\n' "${fits_files[@]}"
+
+      - name: Upload artifacts on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-ci-failure-artifacts
+          path: |
+            output/
+            build/CMakeCache.txt
+            build/Testing/Temporary/LastTest.log
+            work/*.pars
+          if-no-files-found: ignore
+          retention-days: 14

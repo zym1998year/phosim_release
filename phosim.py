@@ -41,7 +41,11 @@ def usage():
      subprocess.call([sys.executable, os.path.abspath(__file__), 'x', '--help'])
 
 ##jobChip is a function that run an individual chip for a single exposure
-def jobChip(observationID, cid, eid, filt, nframes, nskip, ngroups, tframe, outputDir, binDir, instrDir, instrument='generic', run_e2adc=True, run_ds9=False, keep_raytrace=False):
+def jobChip(observationID, cid, eid, filt, nframes, nskip, ngroups, tframe, outputDir, binDir, instrDir, workDir, instrument='generic', run_e2adc=True, run_ds9=False, keep_raytrace=False):
+    # On Windows, multiprocessing uses 'spawn' and the child does not inherit
+    # this working directory; correct it here. When called inline (numproc==1)
+    # cwd is already workDir, so this chdir is a no-op.
+    os.chdir(workDir)
     fid = observationID + '_' + cid + '_' + eid
     segfile = instrDir+'/segmentation.txt'
 
@@ -106,7 +110,11 @@ def jobChip(observationID, cid, eid, filt, nframes, nskip, ngroups, tframe, outp
                         shutil.move(eImage, outputDir+'/'+eImage)
          if run_ds9:
              if os.name == 'nt':
-                 print('--ds9 is not supported on Windows in this port; output FITS files were still generated.')
+                 ds9Path = shutil.which('ds9')
+                 if ds9Path:
+                     subprocess.Popen([ds9Path, '-scale', 'log', outputDir + '/' + fImage])
+                 else:
+                     print('--ds9 is not supported on Windows in this port; output FITS files were still generated.')
              else:
                  fullpath = '/Applications:' + os.environ["PATH"]
                  for path in fullpath.split(os.pathsep):
@@ -779,13 +787,13 @@ class PhosimFocalplane(object):
                                 # inherit this working directory, which breaks the relative
                                 # eimage/amplifier file handling below.
                                 jobChip(observationID, cid, eid, self.filt, self.nframes, self.nskip,
-                                        self.ngroups, self.tframe, self.outputDir, self.binDir, self.instrDir,
+                                        self.ngroups, self.tframe, self.outputDir, self.binDir, self.instrDir, self.workDir,
                                         instrument=instrument, run_e2adc=run_e2adc, run_ds9=run_ds9,
                                         keep_raytrace=keep_raytrace)
                             else:
                                 p=multiprocessing.Process(target=jobChip,
                                                           args=(observationID,cid,eid,self.filt, self.nframes, self.nskip, self.ngroups, self.tframe, self.outputDir,
-                                                                self.binDir, self.instrDir),
+                                                                self.binDir, self.instrDir, self.workDir),
                                                           kwargs={'instrument': instrument, 'run_e2adc': run_e2adc, 'run_ds9': run_ds9, 'keep_raytrace': keep_raytrace})
                                 jobs.append(p)
                                 p.start()
