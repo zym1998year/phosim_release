@@ -69,8 +69,10 @@ std::istream& readText::getLine(std::istream & inStream, std::string & line) {
     /// @brief Get line
 
     if (std::getline(inStream, line)) {
+        if (!line.empty() && line.back() == '\r') line.pop_back();  // tolerate CRLF (Windows) pars
         while (!goodLine(line)) {
             if (!std::getline(inStream, line)) break;
+            if (!line.empty() && line.back() == '\r') line.pop_back();
         }
     }
     return inStream;

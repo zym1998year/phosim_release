@@ -19,6 +19,9 @@ endif()
 if(MSVC)
     add_compile_options(/permissive- /EHsc /Zc:__cplusplus /utf-8 /DNOMINMAX)
     add_compile_definitions(_CRT_SECURE_NO_WARNINGS NOMINMAX _USE_MATH_DEFINES)
+    # PhoSim uses large fixed stack arrays (e.g. double[10000] in instrument.cpp) that
+    # fit Linux's 8 MB default stack but overflow MSVC's 1 MB default. Match Linux (8 MB).
+    add_link_options(/STACK:8388608)
     if(PHOSIM_MSVC_FAST_FLOAT)
         add_compile_options($<$<CONFIG:Release>:/fp:fast>)
     else()

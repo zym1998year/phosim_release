@@ -1082,7 +1082,7 @@ int Observation::parser () {
 
     std::ostringstream outfile;
     std::ostringstream outfileevent;
-    unsigned pos = instrdir.rfind("/") + 1;
+    unsigned pos = instrdir.find_last_of("/\\") + 1;  // accept both POSIX and Windows separators
     for (unsigned i = pos; i < instrdir.length(); i++) {
         outfile << instrdir[i];
         outfileevent << instrdir[i];

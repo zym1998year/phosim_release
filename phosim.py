@@ -31,11 +31,14 @@ import subprocess
 import sys, glob, optparse, shutil
 import multiprocessing
 import math
+import re
+import shlex
 
 ## print the usage
 def usage():
-     script=os.path.abspath('phosim')
-     os.system(script+' x --help')
+     # Re-invoke this script with a dummy catalog + --help so optparse prints usage.
+     # (argv[1]='x' avoids re-entering usage(); works without the shell wrapper.)
+     subprocess.call([sys.executable, os.path.abspath(__file__), 'x', '--help'])
 
 ##jobChip is a function that run an individual chip for a single exposure
 def jobChip(observationID, cid, eid, filt, nframes, nskip, ngroups, tframe, outputDir, binDir, instrDir, instrument='generic', run_e2adc=True, run_ds9=False, keep_raytrace=False):
@@ -102,22 +105,40 @@ def jobChip(observationID, cid, eid, filt, nframes, nskip, ngroups, tframe, outp
                         fImage=eImage
                         shutil.move(eImage, outputDir+'/'+eImage)
          if run_ds9:
-             fullpath = '/Applications:' + os.environ["PATH"]
-             for path in fullpath.split(os.pathsep):
-                  if os.path.exists(os.path.join(path, "ds9")):
-                       commandName = os.path.join(path, 'ds9 -scale log ' + outputDir + '/' + fImage + ' &')
-                       if subprocess.call(commandName, shell=True) != 0:
-                            sys.exit(1)
+             if os.name == 'nt':
+                 print('--ds9 is not supported on Windows in this port; output FITS files were still generated.')
+             else:
+                 fullpath = '/Applications:' + os.environ["PATH"]
+                 for path in fullpath.split(os.pathsep):
+                      if os.path.exists(os.path.join(path, "ds9")):
+                           commandName = os.path.join(path, 'ds9 -scale log ' + outputDir + '/' + fImage + ' &')
+                           if subprocess.call(commandName, shell=True) != 0:
+                                sys.exit(1)
 
 ## runProgram function calls each of the phosim programs using subprocess.call
 #  it raises an exception and aborts if the return code is non-zero.
 def runProgram(command, binDir=None, argstring=None):
-    myCommand = command
-    if binDir is not None:
-        myCommand = os.path.join(binDir, command)
+    # command may be e.g. 'raytrace' or 'raytrace < some.pars'; argstring is appended.
+    # Rewritten for Windows: no shell, explicit argv + stdin redirection, .exe lookup.
+    full = command
     if argstring is not None:
-        myCommand += argstring
-    if subprocess.call(myCommand, shell=True) != 0:
+        full += argstring
+    parts = re.split(r'\s*<\s*', full, maxsplit=1)
+    stdinFile = parts[1].strip() if len(parts) == 2 else None
+    tokens = shlex.split(parts[0].strip(), posix=(os.name != 'nt'))
+    exePath = tokens[0]
+    if binDir is not None:
+        exePath = os.path.join(binDir, exePath)
+    if os.name == 'nt' and not exePath.lower().endswith('.exe') and os.path.exists(exePath + '.exe'):
+        exePath += '.exe'
+    argv = [exePath] + tokens[1:]
+    stdin = open(stdinFile, 'r', encoding='utf-8') if stdinFile else None
+    try:
+        rc = subprocess.call(argv, stdin=stdin)
+    finally:
+        if stdin is not None:
+            stdin.close()
+    if rc != 0:
         sys.exit(1)
 
 ## removeFile deletes files (if they do not exist, it will catch the OSError exception and silently proceed.)
@@ -328,7 +349,7 @@ class PhosimFocalplane(object):
         self.opdfile=0
         if extraCommands != 'none':
              # look for relevant physics commands
-             for line in open(extraCommands):
+             for line in open(extraCommands, encoding='utf-8'):
                   lstr=line.split()
                   if "extraid" in line:
                        self.extraid=lstr[1]
@@ -342,7 +363,9 @@ class PhosimFocalplane(object):
                   if "opd" in line:
                        self.opdfile=int(float(lstr[1]))
              # catch problem with appending pars file without endline character in command file
-             if line[-1] != os.linesep:
+             # (Python text mode normalizes newlines to '\n' on all platforms; os.linesep
+             #  would be '\r\n' on Windows and always mismatch.)
+             if not line.endswith('\n'):
                   print('Error: No endline character found in command file.')
                   sys.exit()
  
@@ -750,18 +773,28 @@ class PhosimFocalplane(object):
                             pfile.close()
 
                         if self.grid == 'no':
-                            p=multiprocessing.Process(target=jobChip,
-                                                      args=(observationID,cid,eid,self.filt, self.nframes, self.nskip, self.ngroups, self.tframe, self.outputDir,
-                                                            self.binDir, self.instrDir),
-                                                      kwargs={'instrument': instrument, 'run_e2adc': run_e2adc, 'run_ds9': run_ds9, 'keep_raytrace': keep_raytrace})
-                            jobs.append(p)
-                            p.start()
-                            counter+=1
-                            if counter==self.grid_opts.get('numproc', 1):
-                                for p in jobs:
-                                    p.join()
-                                counter=0
-                                jobs=[]
+                            if self.grid_opts.get('numproc', 1) == 1:
+                                # Single-process path. Run in-process rather than via
+                                # multiprocessing: on Windows 'spawn' the child does not
+                                # inherit this working directory, which breaks the relative
+                                # eimage/amplifier file handling below.
+                                jobChip(observationID, cid, eid, self.filt, self.nframes, self.nskip,
+                                        self.ngroups, self.tframe, self.outputDir, self.binDir, self.instrDir,
+                                        instrument=instrument, run_e2adc=run_e2adc, run_ds9=run_ds9,
+                                        keep_raytrace=keep_raytrace)
+                            else:
+                                p=multiprocessing.Process(target=jobChip,
+                                                          args=(observationID,cid,eid,self.filt, self.nframes, self.nskip, self.ngroups, self.tframe, self.outputDir,
+                                                                self.binDir, self.instrDir),
+                                                          kwargs={'instrument': instrument, 'run_e2adc': run_e2adc, 'run_ds9': run_ds9, 'keep_raytrace': keep_raytrace})
+                                jobs.append(p)
+                                p.start()
+                                counter+=1
+                                if counter==self.grid_opts.get('numproc', 1):
+                                    for p in jobs:
+                                        p.join()
+                                    counter=0
+                                    jobs=[]
                         elif self.grid == 'cluster':
                             if self.grid_opts.get('script_writer', None):
                                 self.grid_opts['script_writer'](observationID, cid, eid, self.filt,
@@ -871,8 +904,8 @@ class PhosimFocalplane(object):
             os.chdir(self.phosimDir)
 
             if rImageArg != '':
-                 commandName = '${PYTHON} '+os.path.join(self.phosimDir, 'tools/phosim_visualizer/phosim_visualizer.py')+' '+self.instrDir+'/ '+rImageArg
-                 if subprocess.call(commandName, shell=True) != 0:
+                 visualizerPy = os.path.join(self.phosimDir, 'tools/phosim_visualizer/phosim_visualizer.py')
+                 if subprocess.call([sys.executable, visualizerPy, self.instrDir + '/'] + shlex.split(rImageArg, posix=(os.name != 'nt'))) != 0:
                       sys.exit(1)
 
      ## Condor method to setup directories
@@ -964,7 +997,11 @@ def main():
      if sys.argv[1] in ('-v', '--version'):
         print(' ')
         print('Photon Simulator (PhoSim)')
-        os.system('cat '+defaultBinDir+'/version')
+        try:
+            with open(os.path.join(defaultBinDir, 'version'), encoding='utf-8') as vf:
+                sys.stdout.write(vf.read())
+        except OSError:
+            pass
         print(' ')
         sys.exit()
 
