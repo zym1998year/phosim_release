@@ -90,7 +90,7 @@ void E2adc::setup() {
     }
 
     instr = "";
-    unsigned pos = instrdir.rfind("/") + 1;
+    unsigned pos = instrdir.find_last_of("/\\") + 1;  // accept both POSIX and Windows separators
     for (unsigned i = pos; i < instrdir.length(); i++) {
         instr += instrdir[i];
     }

@@ -169,9 +169,9 @@ def checkPaths(opt,phosimDir):
     if not os.path.exists(instrDir):
         raise RuntimeError('The instrument directory %s does not exist.' % instrDir)
     opt.instrDir=instrDir
-    opt.instrument = instrDir.split("/")[-1]
-    if len(opt.instrument)==0:
-        opt.instrument = instrDir.split("/")[-2]
+    # basename of the instrument dir; os.path.basename handles both / and \ so this
+    # works on Windows (instrDir has backslashes) as well as POSIX.
+    opt.instrument = os.path.basename(os.path.normpath(instrDir))
 
 
 ## PhosimFocalplane is a class for handling phosim files and directories for one focalplane.
