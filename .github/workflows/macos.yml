@@ -18,6 +18,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # The GitHub mirror omits files >100 MB (GitHub hard limit). Fetch the ones the
+      # smoke test needs from the Bitbucket upstream at the recorded v6.3 baseline.
+      # On a full checkout the files already exist and this step is a no-op.
+      - name: Fetch large data files if missing
+        run: |
+          base="099a9c1c62756bb63fd238328e73aa041366b091"
+          for f in data/atmosphere/wind.txt data/atmosphere/artificial.txt; do
+            if [ ! -f "$f" ]; then
+              echo "fetching $f from Bitbucket upstream"
+              curl -fsSL --retry 3 -o "$f" "https://bitbucket.org/phosim/phosim_release/raw/$base/$f"
+            fi
+          done
+
       - name: Setup Miniconda
         uses: conda-incubator/setup-miniconda@v3
         with:
