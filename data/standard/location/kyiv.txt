@@ -1,0 +1,3 @@
+groundlevel          168
+latitude        50.442200
+longitude        30.536700

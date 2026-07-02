@@ -1,0 +1,17 @@
+mountPoints 9
+mountRim 20
+mountType 0
+heatCapacity 800
+thickness 339.0
+density 2230.0
+fillFactor 0.23
+thermalConductivity 1.2
+youngsModulus 6.3e10
+poissonRatio 0.2
+nominalTemperature 11.5
+nominalGravity 1.0
+thermalExpansionCoefficient 3.3e-6
+constraintSize 0.1
+blankType 0
+firstFocus       1.0
+coolingPerformanceRate 160.0

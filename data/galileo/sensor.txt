@@ -1,0 +1,3 @@
+wellDepth 100000
+xTransfer 1
+yTransfer 1

@@ -1,0 +1,41 @@
+#!/bin/zsh -f
+## @package ./phosim
+## @file ./validation_4F_pipeline
+## @brief Pipeline to create all the necessary data for validation 4F, then process it
+##
+## @brief Created by:
+## @author Caleb Remocaldo (Purdue)
+
+##NOT COMPLETE
+
+files=$1 #path to real images
+skip=$2 #y/n, skip generating catalogs and unpacking real images
+
+if [[ -z "$files" ]]; then
+     echo 'Path needs to be specified!'
+elif [[ ! -d "$files" ]]; then
+    echo 'Directory does not exist!'
+elif [[ -e "$files*fits*" ]]; then
+    echo "Directory exists but has no fits files!"
+else
+     cd /users/$USER/phosim_core/
+     if [ '$skip'='n' ]; then
+	 rm -f ./validation/validation_4F_*_catalog
+	 rm -f ./validation/wiyn_odi_*.fits.gz
+	 
+         python3 validation/catalogMaker.py $files
+         python3 validation/realdatamaker.py $files
+
+         echo 'Running phosim:'
+         echo
+
+         for catalog in ./validation/validation_4F_*_catalog; do
+            ./phosim $catalog -c validation/validation_4F_commands -o ./validation/ -i wiyn_odi -e 0;
+         done
+     fi
+
+     cd ./validation
+     /Applications/harris/idl/bin/idl -e "validation_temp";
+
+     echo 'Pipeline complete.  The plots are in validation/validation.ps'
+fi

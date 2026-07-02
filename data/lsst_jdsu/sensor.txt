@@ -1,0 +1,53 @@
+edgeSurfaceCharge -5e9
+treeRingPeriod 3750.0
+treeRingAmplitude 0.03
+treeRingRatio 7.5
+treeRingVariation 750.0
+treeRingDecay 150000.0
+deadLayerDepth 0.75
+deadLayerWidth 3000.0
+deadLayerHeight 500.0
+deadLayerXoverlap -200.0
+deadLayerYoverlap -200.0
+deadLayerXinit 0 0.0
+deadLayerXinit 1 300.0
+deadLayerYinit 0 0.0
+deadLayerYinit 1 300.0
+deadLayerAngle 0 10.0
+deadLayerAngle 1 10.0
+pixelVarX 0.003
+pixelVarY 0.002
+wellDepth 100000
+nbulk 1e12
+nf -5e15
+nb 0.0
+sf 0.01
+sb 0.0025
+spaceChargeShield 0.12
+spaceChargeSpreadX 4.0
+spaceChargeSpreadY 1.0
+chargeStopCharge 1000
+siliconType -1
+sensorTempNominal 173
+shapeType zern
+shapeValue 0 0 4.0
+shapeValue 1 0 2.0
+shapeValue 2 0 2.0
+shapeValue 3 0 0.8
+shapeValue 4 0 0.8
+shapeValue 5 0 0.8
+shapeValue 6 0 0.4
+shapeValue 7 0 0.4
+shapeValue 8 0 0.4
+shapeValue 9 0 0.4
+shapeValue 10 0 0.235294
+shapeValue 11 0 0.235294
+shapeValue 12 0 0.235294
+shapeValue 13 0 0.235294
+shapeValue 14 0 0.235294
+shapeValue 15 0 0.153846
+shapeValue 16 0 0.153846
+shapeValue 17 0 0.153846
+shapeValue 18 0 0.153846
+shapeValue 19 0 0.153846
+shapeValue 20 0 0.153846

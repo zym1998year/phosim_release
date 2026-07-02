@@ -1,0 +1,40 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: PhoSim
+message: >-
+  Please cite the following works when using this software:
+  https://ui.adsabs.harvard.edu/abs/2015ApJS..218...14P ,
+  https://ui.adsabs.harvard.edu/abs/2019ApJ...873...98P ,
+  https://ui.adsabs.harvard.edu/abs/2019JATIS...5c8002B ,
+  https://ui.adsabs.harvard.edu/abs/2020ApJ...889..182P
+type: software
+authors:
+  - given-names: John R.
+    family-names: Peterson
+    email: peters11@purdue.edu
+    affiliation: Purdue University
+    orcid: 'https://orcid.org/0000-0001-5471-9609'
+  - given-names: J. Garrett
+    family-names: Jernigan
+    email: jgj@h-bar.com
+    affiliation: Berkeley University
+repository-code: 'https://bitbucket.org/phosim/phosim_release/wiki/Home'
+url: 'https://www.phosim.org'
+abstract: >-
+  PhoSim is a set of extremely fast photon Monte Carlo codes
+  that calculate the ab initio physics of the atmosphere and
+  a telescope & camera in order to simulate realistic
+  optical/UV/IR/X-ray astronomical images.  PhoSim can also
+  simulate any optical system that produces images (e.g.
+  cameras, satellites, human eye).
+keywords:
+  - Simulation
+  - Photon
+  - Atmosphere
+  - Optics
+  - Telescope
+  - Camera
+  - Astronomy
+license: GPL-3.0

@@ -1,0 +1,14 @@
+5            M1   mirror protected_al2o3         air          none 
+8            M2   mirror protected_al2o3         air          none 
+15           M3   mirror protected_al2o3         air          none 
+16           M4   mirror protected_al2o3         air          none 
+18           L1     lens   lenses.txt        N-SF5         none 
+19           L2     lens   lenses.txt        N-BK7         none 
+20          L2E     lens   lenses.txt          air         none 
+22           M5   mirror protected_al2o3         air          none 
+23           L3     lens   lenses.txt        N-BK7         none 
+24          L3E     lens   lenses.txt          air         none 
+25           L4     lens   lenses.txt        N-SF2         none 
+26          L4E     lens   lenses.txt          air         none 
+27           M6   mirror protected_al2o3         air          none 
+28          Det      det  detector_ar          air         none 

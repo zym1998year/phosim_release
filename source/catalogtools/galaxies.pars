@@ -1,0 +1,6 @@
+galaxies 10 40 .2
+pointingra 194.5
+pointingdec 27.12
+RandomSeed 1000
+obshistid 60
+seddir /scratch/halstead/s/sembrosk/lsst/catalogs/SEDs

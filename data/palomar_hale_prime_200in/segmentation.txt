@@ -1,0 +1,24 @@
+#
+# @package phosim
+# @brief phosim data file
+#
+# @brief Created by:
+# @author John R. Peterson (Purdue)
+#
+# @brief Modified by:
+#
+#  @warning Please treat results using PhoSim with caution as this project is in active development.
+#  @warning This material is copyrighted and subject to a open source license with restrictions.  See COPYING for details.
+#
+chip0 1     2048     4096
+chip_amplifier0 0     2047 0     4095 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 18 1 0 0 0 0 0 0
+chip1 1     2048     4096
+chip_amplifier1 0     2047 0     4095 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 18 1 0 0 0 0 0 0
+chip2 1     2048     4096
+chip_amplifier2 0     2047 0     4095 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 18 1 0 0 0 0 0 0
+chip3 1     2048     4096
+chip_amplifier3 0     2047 0     4095 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 18 1 0 0 0 0 0 0
+chip4 1     2048     4096
+chip_amplifier4 0     2047 0     4095 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 18 1 0 0 0 0 0 0
+chip5 1     2048     4096
+chip_amplifier5 0     2047 0     4095 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 18 1 0 0 0 0 0 0

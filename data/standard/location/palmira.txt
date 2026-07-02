@@ -1,0 +1,3 @@
+groundlevel         1001
+latitude        3.5833000
+longitude       -76.250000

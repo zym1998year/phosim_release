@@ -1,0 +1,13 @@
+#
+# @package phosim
+# @brief phosim data file
+#
+# @brief Created by:
+# @author John R. Peterson (Purdue)
+#
+# @brief Modified by:
+#
+#  @warning Please treat results using PhoSim with caution as this project is in active development.
+#  @warning This material is copyrighted and subject to a open source license with restrictions.  See COPYING for details.
+#
+chip 0.0 0.0      0.100000     1024     1024 silicon CCD frame 0.0       10.0000 Group0 0 0 0 0 0 0 n_type 0

@@ -1,0 +1,17 @@
+#
+# @package phosim
+# @brief phosim data file
+#
+# @brief Created by:
+# @author John R. Peterson (Purdue)
+#
+# @brief Modified by:
+#
+#  @warning Please treat results using PhoSim with caution as this project is in active development.
+#  @warning This material is copyrighted and subject to a open source license with restrictions.  See COPYING for details.
+#
+optics g    0.2    1.2 0.5  273589.4062 1 1 0
+primary mirror   32000.0000      0.0000   2000.0000    250.0000 -1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 protected_al air none
+filter  lens      -920.0001  14128.0000    250.0000      0.0000 -1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 sdss_g sio2 none
+filter  lens      -901.6001     40.0000    250.0000      0.0000 -1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 lens_ar air none
+image   det          0.0000   1832.0000    240.0000      0.0000  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 detector_ar air none

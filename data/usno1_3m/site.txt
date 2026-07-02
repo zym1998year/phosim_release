@@ -1,0 +1,5 @@
+groundlevel 2316.0
+xtellocation 0.0
+ytellocation 0.0
+latitude 35.1983
+longitude -111.6513

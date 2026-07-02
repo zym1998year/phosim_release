@@ -1,0 +1,305 @@
+#!/usr/bin/env python
+##
+## @package chip
+## @file chip
+## @brief python methods for running condor
+##
+## @brief Created by:
+## @author John R. Peterson (Purdue)
+##
+## @brief Modified by:
+## @author Emily Grace (Purdue)
+## @author Nathan Todd (Purdue)
+## @author En-Hsin Peng (Purdue)
+## @author Glenn Sembroski (Purdue)
+## @author Jim Chiang (SLAC)
+## @author Jeff Gardner (Google)
+##
+## @warning This code is not fully validated
+## and not ready for full release.  Please
+## treat results with caution.
+
+import sys, os, subprocess, shutil, glob
+
+def runProgram(command, binDir=None, argstring=None):
+    myCommand = command
+    if binDir is not None:
+        myCommand = os.path.join(binDir, command)
+    if argstring is not None:
+        myCommand += argstring
+    if subprocess.call(myCommand, shell=True) != 0:
+        raise RuntimeError("Error running %s" % myCommand)
+
+def cleanup(jobName,workDir):
+    files=[jobName+'.submit',jobName+'.pars','output/out_'+jobName+'.out','errors/error_'+jobName+'.error']
+    for f in files:
+        if os.path.exists(workDir+'/'+f):
+            os.remove(workDir+'/'+f)
+
+def cleanupPars(jobName,workDir):
+    files=[jobName+'.submit',jobName+'.pars']
+    for f in files:
+        if os.path.exists(workDir+'/'+f):
+            os.remove(workDir+'/'+f)
+
+def cleanupOuts(jobName,workDir):
+    files=['output/out_'+jobName+'.out','errors/error_'+jobName+'.error']
+    for f in files:
+        if os.path.exists(workDir+'/'+f):
+            os.remove(workDir+'/'+f)
+
+def cleanupScreens(observationID,workDir):
+    subs=glob.glob(workDir+'/'+'raytrace_'+observationID+'_*')
+    if len(subs)==0:
+        files=['objectcatalog_'+observationID+'.pars','tracking_'+observationID+'.pars','airglowscreen_'+observationID+'.fits.gz']
+        for f in files:
+            if os.path.exists(workDir+'/'+f):
+                os.remove(workDir+'/'+f)
+        for f in glob.glob(workDir+'/'+'atmospherescreen_'+observationID+'_*') :
+            os.remove(f)
+        for f in glob.glob(workDir+'/'+'cloudscreen_'+observationID+'_*') :
+            os.remove(f)
+
+def returnValue(logFile):
+    normalReturn=False
+    if os.path.exists(logFile):
+        for line in open(logFile):
+            if "termination" in line:
+                normalReturn=True if "Normal" in line else False
+    return normalReturn
+
+def checkFile(files):
+    fileOK=False
+    for f in files if not isinstance(files, basestring) else [files]:
+        if os.path.exists(f):
+            if os.path.getsize(f)>0:
+                fileOK=True
+            else:
+                return False
+        else:
+            return False
+    return fileOK
+
+def posttrim(argv):
+    obsid=argv[2]              #Observation ID
+    tc=argv[3]                 #trim catalog index
+    #nexp=int(float(argv[4]))   #number of exposures(!no longer used!)
+    dataDir=argv[5]
+    workDir=argv[6]
+    sedDir =argv[7]            #for use with sellar and galactic SED files.
+    #checkpoint=int(float(argv[8])) (!no longer used!)
+    # ########################################################################
+    # Now that we have the results of the trim programs (reduced catalogs for 
+    # each chip, we are going to complete the raytrace ".submit" files by 
+    # adding the SED files to be transfered followed by the "Queue 1" command.
+    # Also copy over the catalogs to the appropriate raytrace  ".pars" files
+    # ########################################################################
+    # We are going to "update" ALL  the existing raytrace .submit and .pars 
+    # files for each chip in the trim catalog file. 
+    #  This bypasses the need to know how many checkpoints and number of 
+    #  exposure files we have for each chip before this script is called 
+    # (old scheme had some faults, this scheme works fine)
+    # ########################################################################
+    if not returnValue(workDir+'/logs/log_trim_'+obsid+'_'+tc+'.log'):
+        sys.exit(1)        
+
+
+
+    os.chdir(workDir)    #go to work directory
+    chipID=[]
+        
+    # Get all the chip IDs for this trim process.
+    for line in open('trim_'+obsid+'_'+tc+'.pars'):
+        if "chipid" in line:
+            chipID.append(line.split()[2])
+
+    # ##############################
+    # We now have all the chipid's processed by this trim process (9 usually) 
+    # in the "chipID" list. Go through the chips
+    # ##############################
+    for cid in chipID:
+        # First build a list of the SED's needed by the objects seen by this chip
+        trimcat = 'trimcatalog_'+obsid+'_'+cid+'.pars'
+        if os.path.getsize(trimcat)>0:
+            seds=[]
+            for line in open(trimcat):
+                # Either we have a standard (ex: sed_flat.txt) specified or
+                # we have something from the galactic  or stellar catalogs.
+                if "object" in line:
+                    seds.append(line.split()[5])
+            uniqseds=list(set(seds))                 #remove duplicate SED's
+                
+            # ###############################
+            # Get a list of all the raytrace .submit files for this chip
+            # The '*' will include any checkpint designation
+            # ###############################
+            pattern = 'raytrace_' + obsid+'_'+cid+'_E' + '*.submit'
+            raytraceSubmitList = glob.glob(pattern)
+            # Iterate over the raytrace files. We have a sperate raytace/e2ADC;
+            # .submit, pars files for each raytrace file in the list.
+            # ############################
+            for submitFileName in raytraceSubmitList :
+                # Extract the fidckpt part by stripping off the  "raytrace_"
+                # and the ".submit"
+                rayFidckpt =  submitFileName.replace(".submit","")
+                fidckpt = rayFidckpt.replace("raytrace_","")
+                # ########################################
+                # There will be for this fid (which includes the nexp:
+                # 'raytrace' + fid + '.submit': needs sEDs and queue 1 command
+                # 'raytrace' + fid + '.pars': Needs trim catalog added.
+                submitfile=open(submitFileName, 'a')
+                    
+                # ####################################################
+                # Add SEDs, 4 possibilities:
+                # 1. No seds. :Do nothing
+                # 2. 1 SED that is from "../sky" directory (already loaded)
+                #    Do nothing
+                # 3. More than 1 SED none of which are from "../sky"
+                #    Add all of them to the transfer list
+                # 4. More than 1 SED with 1 or more from "../sky" directory
+                #    Add only non "../sky" directory SEDs
+                # ####################################################
+                if len(uniqseds)>0 : # Takes care of 1 
+                    # ################
+                    # Put the non ../sky SEDs in the transfer list
+                    # Otherwise ignore "../sky" SEDs We already have all 
+                    # the ../sky/* files  in the transfer list. That was done 
+                    # by the condor.py:writeSubmit  function.
+                    for s in uniqseds :
+                        if "../sky" not in s: 
+                            # Finish previous entry and set up for next
+                            submitfile.write(',\ \n') #TakesCare of 3 and 4
+                            # Add next SED
+                            submitfile.write('%s/%s' % (sedDir,s))
+                    # ################
+                    # When all the SEDs needed for this catalog are in the 
+                    # .submit file transfer list, append the object catalog to
+                    # the raytrace .pars file
+                    pfile=open('raytrace_'+fidckpt+'.pars','a')
+                    pfile.write(open('trimcatalog_'+ obsid +'_' +
+                                                 cid + '.pars').read())
+                    pfile.close()
+                submitfile.write('\n')   #Finish last transfer list entry.
+                submitfile.write('Queue 1\n')
+                submitfile.close()            #last line of submit file loop
+        os.remove('trimcatalog_'+obsid+'_'+cid+'.pars') #last line in chip loop
+    cleanup('trim_'+obsid+'_'+tc,workDir)     
+    return
+
+def postraytrace(argv):
+    observationID=argv[2]
+    filt=argv[3]
+    cid=argv[4]
+    eid=argv[5]
+    ckpt=argv[6]
+    workDir=argv[7]
+    outputDir=argv[8]
+    instrument=argv[9]
+    fid=observationID + '_' + cid + '_' + eid
+    fidfilt=observationID + '_f' + filt + '_' + cid + '_' + eid
+
+
+    files=[workDir+'/'+instrument+'_e_'+fidfilt+'.fits.gz']
+    if checkFile(files):
+        cleanupPars('raytrace_'+fid+'_'+ckpt,workDir)
+        ckptpre=int(float(ckpt))-1
+        if ckptpre>=0:
+            for f in [instrument+'_e_'+fidfilt+'_ckptdt_'+str(ckptpre)+'.fits.gz',instrument+'_e_'+fidfilt+'_ckptfp_'+str(ckptpre)+'.fits.gz']:
+                if os.path.exists(workDir+'/'+f):
+                    os.remove(workDir+'/'+f)
+        #cleanupOuts(fid,workDir)
+        cleanupScreens(observationID,workDir)
+
+        eImage=instrument+'_e_'+fidfilt+'.fits.gz'
+        shutil.move(workDir+'/'+eImage,outputDir+'/'+eImage)
+    else:
+        sys.exit(1)
+
+def raytracecleanup(argv):
+    observationID=argv[2]
+    filt=argv[3]
+    cid=argv[4]
+    eid=argv[5]
+    ckpt=argv[6]
+    workDir=argv[7]
+    instrument=argv[8]
+    fid=observationID + '_' + cid + '_' + eid
+    fidfilt=observationID + '_f' + filt + '_' + cid + '_' + eid
+
+    files=[workDir+'/'+instrument+'_e_'+fidfilt+'_ckptdt_'+ckpt+'.fits.gz',workDir+'/'+instrument+'_e_'+fidfilt+'_ckptfp_'+ckpt+'.fits.gz']
+    if checkFile(files):
+        cleanupPars('raytrace_'+fid+'_'+ckpt,workDir)
+        ckptpre=int(float(ckpt))-1
+        if ckptpre>=0:
+            for f in [instrument+'_e_'+fidfilt+'_ckptdt_'+str(ckptpre)+'.fits.gz',instrument+'_e_'+fidfilt+'_ckptfp_'+str(ckptpre)+'.fits.gz']:
+                if os.path.exists(workDir+'/'+f):
+                    os.remove(workDir+'/'+f)
+    else:
+        sys.exit(1)
+
+def lastraytracecleanup(argv):
+    observationID=argv[2]
+    filt=argv[3]
+    cid=argv[4]
+    eid=argv[5]
+    ckpt=argv[6]
+    workDir=argv[7]
+    instrument=argv[8]
+    fid=observationID + '_' + cid + '_' + eid
+    fidfilt=observationID + '_f' + filt + '_' + cid + '_' + eid
+
+    files=[workDir+'/'+instrument+'_e_'+fidfilt+'.fits.gz']
+    if checkFile(files):
+        cleanupPars('raytrace_'+fid+'_'+ckpt,workDir)
+        ckptpre=int(float(ckpt))-1
+        if ckptpre>=0:
+            for f in [instrument+'_e_'+fidfilt+'_ckptdt_'+str(ckptpre)+'.fits.gz',instrument+'_e_'+fidfilt+'_ckptfp_'+str(ckptpre)+'.fits.gz']:
+                if os.path.exists(workDir+'/'+f):
+                    os.remove(workDir+'/'+f)
+    else:
+        sys.exit(1)
+
+def poste2adc(argv):
+    observationID=argv[2]
+    filt=argv[3]
+    cid=argv[4]
+    eid=argv[5]
+    outputDir=argv[6]
+    instrDir=argv[7]
+    workDir=argv[8]
+    instrument=argv[9]
+    fid=observationID + '_' + cid + '_' + eid
+    fidfilt=observationID + '_f' + filt + '_' + cid + '_' + eid
+
+    os.chdir(workDir)
+    tarFiles=''
+    segfile=os.path.join(instrDir,'segmentation.txt')
+    for line in open(segfile):
+        aid=line.split()[0]
+        if cid in line and aid != cid:
+            rawImage=instrument+'_a_'+observationID+'_f'+filt+'_'+aid+'_'+eid+'.fits.gz'
+            if checkFile(rawImage):
+                shutil.move(rawImage,outputDir+'/'+rawImage)
+                tarFiles+=rawImage+' '
+            else:
+                sys.exit(1)
+
+    eImage=instrument+'_e_'+fidfilt+'.fits.gz'
+    shutil.move(eImage,outputDir+'/'+eImage)
+    tarFiles+=eImage
+
+    os.chdir(outputDir)
+    tar=instrument+'_'+fidfilt+'.tar'
+    runProgram('tar cf '+tar+' '+tarFiles+' --remove-files')
+
+    cleanupPars('e2adc_'+fid,workDir)
+    #cleanupOuts(fid,workDir)
+    cleanupScreens(observationID,workDir)
+
+
+function=sys.argv[1]
+try:
+    exec(function+'(sys.argv)')
+except:
+    raise RuntimeError('Invalid command %s ' % function)
+

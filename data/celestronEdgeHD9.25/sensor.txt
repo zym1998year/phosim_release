@@ -1,0 +1,18 @@
+#
+# @package phosim
+# @brief phosim data file
+#
+# @brief Created by:
+# @author John R. Peterson (Purdue)
+#
+# @brief Modified by:
+#
+#  @warning Please treat results using PhoSim with caution as this project is in active development.
+#  @warning This material is copyrighted and subject to a open source license with restrictions.  See COPYING for details.
+#
+wellDepth 100000
+nbulk 1e12
+nf -5e15
+sf 0.01
+siliconType -1
+sensorTempNominal 173

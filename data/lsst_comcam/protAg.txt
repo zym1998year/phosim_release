@@ -1,0 +1,3 @@
+protectedlayer si3n4 ag 0.083
+contamination 0.05 0.0
+scattering 18e-9 0.055 3.4

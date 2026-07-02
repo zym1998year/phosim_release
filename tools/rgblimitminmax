@@ -1,0 +1,2 @@
+#!/bin/csh
+ds9 -rgb -red $3 -scale limits $1 $2 -scale log -green $4 -scale limits $1 $2 -scale log -blue $5 -scale limits $1 $2 -scale log -rgb close -view panner no -view magnifier no -view panner no -view info no -view colorbar no &

@@ -1,0 +1,3 @@
+groundlevel         1724
+latitude        20.684100
+longitude       -101.35110

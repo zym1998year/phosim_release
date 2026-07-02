@@ -1,0 +1,115 @@
+# Perturbation file for Gemini North GMOS full optical path
+# Expanded: each glass element is now an individual surface with its specific material.
+# Cement layers (CEMENT5, ~0.05mm) are omitted.
+#
+# Body numbering:
+#  2 = Fold mirror
+#  3 = CL1a (J2A6429 entrance)
+#  4 = CL1b (CAFL interface)
+#  5 = CL1c (JAE7216B interface)
+#  6 = CL1E (exit to air)
+#  7 = CL2a (T2A5806 entrance)
+#  8 = CL2b (CAFL interface)
+#  9 = CL2c (J2F5613 interface)
+# 10 = CL2E (exit to air)
+# 11 = CL3a (JAE7216A entrance)
+# 12 = CL3b (CAFL interface)
+# 13 = CL3c (115160/1 interface)
+# 14 = CL4  (J475405 entrance)
+# 15 = CL4E (J475405 exit to air)
+# 16 = CL_win  (SILICA window front)
+# 17 = CL_winE (SILICA window back)
+# 18 = GM (grating mirror)
+# 19 = CG1a (JAE7216B2 entrance)
+# 20 = CG1b (L1553S5 interface)
+# 21 = CG1c (K1H46S3 interface)
+# 22 = CG1d (SILICA interface)
+# 23 = CG1E (exit to air)
+# 24 = CG2a (SILICA entrance)
+# 25 = CG2b (JAE7216C interface)
+# 26 = CG2c (CAFL interface)
+# 27 = CG2d (H7584/37 interface)
+# 28 = CG2E (exit to air)
+# 29 = CG3a (JAE7216B3 entrance)
+# 30 = CG3b (CAFL interface)
+# 31 = CG3c (121490-2 interface)
+# 32 = CG3E (exit to air)
+# 33 = CG4  (SILICA entrance)
+# 34 = CG4E (SILICA exit to air)
+# 35 = det
+#
+# Format: name  body  dof  type  seed  mean  sigma  dx dy dz  axis_x axis_y axis_z  angle  coeff
+#
+Fold_axis                       2 body  0 random   0   0.0              1.0      0.0  0.0  0.0  0.0  0.0                   3.141592        0.0
+Fold_tilt                       2 body  2 random   1   0.0              0.785398 0.0  0.0  0.0  0.0  1.0                   0.0             0.0
+
+IPath_axis      3|4|5|6|7|8|9|10|11|12|13|14|15|16|17 body  0 random   2   0.0        1.0       0.0  0.0  0.0  0.0  0.0    0.0            0.0
+IPath_tilt      3|4|5|6|7|8|9|10|11|12|13|14|15|16|17 body  2 random   3   0.0        1.570796  0.0  0.0  0.0  0.0  1.0    0.0            0.0
+# --- Collimator triplet 1: J2A6429 + CAFL + JAE7216B ---
+CL1ay                           3 body  4 random   4   0.0              1298.471  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CL1by                           4 body  4 random   4   0.0              1313.734  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CL1cy                           5 body  4 random   4   0.0              1405.978  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CL1Ey                           6 body  4 random   4   0.0              1421.081  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+# --- Collimator triplet 2: T2A5806 + CAFL + J2F5613 ---
+CL2ay                           7 body  4 random   4   0.0              1819.643  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CL2by                           8 body  4 random   4   0.0              1839.707  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CL2cy                           9 body  4 random   4   0.0              1869.848  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CL2Ey                          10 body  4 random   4   0.0              1884.919  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+# --- Collimator triplet 3: JAE7216A + CAFL + 115160/1 ---
+CL3ay                          11 body  4 random   4   0.0              2329.377  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CL3by                          12 body  4 random   4   0.0              2344.446  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CL3cy                          13 body  4 random   4   0.0              2384.375  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+# --- Collimator singlet: J475405 ---
+CL4y                           14 body  4 random   4   0.0              2399.354  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CL4Ey                          15 body  4 random   4   0.0              2414.496  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+# --- Filter window ---
+CL_winy_FILTER                 16 body  4 random   4   0.0              2485.351  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CL_winEy_FILTER                17 body  4 random   4   0.0              2495.351  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+# --- Grating mirror ---
+GM_axis                        18 body  0 random   0   0.0              1.0       0.0  0.0  0.0  0.0  0.0                  0.436          0.0
+GM_tilt                        18 body  2 random   1   0.0              1.57      0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+GMy                            18 body  4 random   4   0.0              2709.61   0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+# --- GMOS camera group axis/tilt ---
+GMOS_axis                      19|20|21|22|23|24|25|26|27|28|29|30|31|32|33|34 body  0 random   0   0.0   1.0              1.0  0.0  0.0  0.0  0.0  0.8727  0.0 
+GMOS_tilt                      19|20|21|22|23|24|25|26|27|28|29|30|31|32|33|34 body  2 random   1   0.0   1.571            0.0  0.0  0.0  0.0  1.0  0.0  0.0
+# --- Camera quad 1: JAE7216B2 + L1553S5 + K1H46S3 + SILICA ---
+CG1ay                          19 body  4 random   3   0.0              2593.909  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CG1ax                          19 body  3 random   4   0.0              137.887  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CG1by                          20 body  4 random   3   0.0              2584.198  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CG1bx                          20 body  3 random   4   0.0              149.460  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CG1cy                          21 body  4 random   3   0.0              2561.711  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CG1cx                          21 body  3 random   4   0.0              176.259  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CG1dy                          22 body  4 random   3   0.0              2545.694  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CG1dx                          22 body  3 random   4   0.0              195.348  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CG1Ey                          23 body  4 random   3   0.0              2536.052  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CG1Ex                          23 body  3 random   4   0.0              206.838  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+# --- Camera quad 2: SILICA + JAE7216C + CAFL + H7584/37 ---
+CG2ay                          24 body  4 random   3   0.0              2278.892  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CG2ax                          24 body  3 random   4   0.0              513.310  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CG2by                          25 body  4 random   3   0.0              2253.145  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CG2bx                          25 body  3 random   4   0.0              543.994  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CG2cy                          26 body  4 random   3   0.0              2242.849  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CG2cx                          26 body  3 random   4   0.0              556.264  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CG2dy                          27 body  4 random   3   0.0              2201.088  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CG2dx                          27 body  3 random   4   0.0              606.033  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CG2Ey                          28 body  4 random   3   0.0              2188.227  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CG2Ex                          28 body  3 random   4   0.0              621.360  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+# --- Camera triplet 3: JAE7216B3 + CAFL + 121490-2 ---
+CG3ay                          29 body  4 random   3   0.0              2186.652  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CG3ax                          29 body  3 random   4   0.0              623.237  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CG3by                          30 body  4 random   3   0.0              2177.622  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CG3bx                          30 body  3 random   4   0.0              633.998  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CG3cy                          31 body  4 random   3   0.0              2148.651  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CG3cx                          31 body  3 random   4   0.0              668.525  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CG3Ey                          32 body  4 random   3   0.0              2135.790  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CG3Ex                          32 body  3 random   4   0.0              683.852  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+# --- Camera singlet: SILICA ---
+CG4y                           33 body  4 random   3   0.0              2108.084  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CG4x                           33 body  3 random   4   0.0              716.871   0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CG4Ey                          34 body  4 random   3   0.0              2096.514  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+CG4Ex                          34 body  3 random   4   0.0              730.659   0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+# --- Detector ---
+det_axis                       35 body  0 random    0   0.0             1.0       1.0  0.0  0.0  0.0  0.0                0.8727  0.0 
+det_tilt                       35 body  2 random    1   0.0             1.571     0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+dety                            35 body  4 random   3   0.0             2036.735  0.0  0.0  0.0  0.0  1.0                  0.0            0.0
+detx                            35 body  3 random   4   0.0             801.901  0.0  0.0  0.0  0.0  1.0                  0.0            0.0

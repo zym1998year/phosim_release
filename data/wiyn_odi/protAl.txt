@@ -1,0 +1,2 @@
+protectedlayer sio2 al 0.166
+contamination 0.15 0.0

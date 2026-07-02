@@ -1,0 +1,6 @@
+optics medium   0.30  1.20  0.545  300.0 1 1 0
+cornea1	lens	-7.8	 0.0			4.0   	0.0 -0.25		0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 none			cornea_dispersion.txt none
+cornea2	lens	-6.5	-0.55			4.0   	0.0 -0.25		0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 none			aqueous_dispersion.txt none
+lens1	lens 	-12     -2.97			4.0	0.0 -7.518749418926	0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 none			lens_dispersion.txt none
+lens2	lens	5.22456	-3.767			4.0	0.0 -1.35397073709	0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 none			vitreous_dispersion.txt none
+retina	det	13.4	-14.7		13.0	0.0  0.0   		0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 m_throughput	vacuum none

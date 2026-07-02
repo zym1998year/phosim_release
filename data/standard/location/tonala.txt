@@ -1,0 +1,3 @@
+groundlevel         1528
+latitude        16.089800
+longitude       -93.754900

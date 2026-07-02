@@ -1,0 +1,3 @@
+groundlevel            5
+latitude        25.033800
+longitude        121.56450

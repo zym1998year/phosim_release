@@ -1,0 +1,24 @@
+#
+# @package phosim
+# @brief phosim data file
+#
+# @brief Created by:
+# @author John R. Peterson (Purdue)
+#
+# @brief Modified by:
+#
+#  @warning Please treat results using PhoSim with caution as this project is in active development.
+#  @warning This material is copyrighted and subject to a open source license with restrictions.  See COPYING for details.
+#
+S1 1     2048     4608
+S1_amplifier 0     2047 0     4607 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 18 1 0 0 0 0 0 0
+S2 1     2048     4608
+S2_amplifier 0     2047 0     4607 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 18 1 0 0 0 0 0 0
+S3 1     2048     4608
+S3_amplifier 0     2047 0     4607 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 18 1 0 0 0 0 0 0
+S4 1     2048     4608
+S4_amplifier 0     2047 0     4607 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 18 1 0 0 0 0 0 0
+T1 1     512     2048
+T1_amplifier 0     511  0     2047 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 18 1 0 0 0 0 0 0
+T2 1     511     2048
+T2_amplifier 0     511  0     2047 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 18 1 0 0 0 0 0 0

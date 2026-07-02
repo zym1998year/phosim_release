@@ -1,0 +1,98 @@
+VERS 9010 257
+NAME GEMINI 8 METER RC, CURVED FIELD
+NOTE 1 Notes...
+NOTE 2  
+NOTE 3  
+UNIT MM
+ENPD 7900
+PUPD 111421 7900
+GFAC 0 0
+GCAT schott misc
+RAIM 1.0E-8 0 1 1 0 0
+PUSH 0 0 0 0
+SDMA 0 1
+FTYP 0
+ROPD 2
+PICB 1
+XFLD 0
+YFLD 0
+FWGT 1
+WAVL 2.2
+WWGT 1
+PWAV 1
+POLS 1 0 1 0 0
+GLRS 1
+GSTD 0 100.0000 100.0000 100.0000 100.0000 100.0000 100.0000
+NSCD 100 5000 0.00000000E+000 1.00000000E-006 20
+COFN COATING.DAT
+SURF 0
+  TYPE STANDARD
+  CURV 0 0 0 0
+  SLAB 6
+  DISZ INFINITY
+  DIAM 0 0 0
+SURF 1
+  TYPE STANDARD
+  CURV 0 0 0 0
+  SLAB 7
+  DISZ 14000
+  DIAM 3950 0 0
+SURF 2
+  TYPE STANDARD
+  CURV 0 0 0 0
+  SLAB 8
+  DISZ 277.77275
+  DIAM 4000 1 0
+SURF 3
+  TYPE STANDARD
+  CURV -3.47169182486e-005 0 0 0
+  SLAB 1
+  DISZ -12542.664369
+  GLAS MIRROR 0 0 1.500000 40.000000 0.000000 0 0 0 0.00000000 0.00000000 
+  CONI -1.003825
+  VDSZ 0 0
+  DIAM 4000 1 0
+  OBSC 0 600
+SURF 4
+  STOP
+  TYPE STANDARD
+  CURV -0.0002386520929789 0 0 0
+  SLAB 2
+  DISZ 12542.664369
+  GLAS MIRROR 0 0 1.500000 40.000000 0.000000 0 0 0 0.00000000 0.00000000 
+  CONI -1.618
+  PZUP 3 -1 0
+  DIAM 511.969391 1 0
+  CLAP 77.55 512
+SURF 5
+  TYPE STANDARD
+  CURV 0 0 0 0
+  SLAB 3
+  DISZ 711
+  DIAM 123.179332 0 0
+SURF 6
+  TYPE STANDARD
+  CURV 0 0 0 0
+  SLAB 4
+  DISZ 3282
+  DIAM 101.237763 0 0
+SURF 7
+  TYPE STANDARD
+  CURV 0 0 0 0
+  SLAB 10
+  DISZ 0
+  DIAM 0.0452566067 0 0
+SURF 8
+  TYPE STANDARD
+  CURV -0.000522075983 0 0 0
+  SLAB 5
+  DISZ 0
+  DIAM 0.0452565902 0 0
+RSCE   3   0              0              0              0              0              0              1
+RSCE   3   0              0         0.3333              0              0              0              1
+RSCE   3   0              0            0.5              0              0              0              1
+RSCE   3   0              0         0.6667              0              0              0              1
+RSCE   3   0              0          0.833              0              0              0              1
+RSCE   3   0              0              1              0              0              0              1
+MNUM 1
+B

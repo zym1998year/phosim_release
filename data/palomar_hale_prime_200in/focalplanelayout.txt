@@ -1,0 +1,18 @@
+#
+# @package phosim
+# @brief phosim data file
+#
+# @brief Created by:
+# @author John R. Peterson (Purdue)
+#
+# @brief Modified by:
+#
+#  @warning Please treat results using PhoSim with caution as this project is in active development.
+#  @warning This material is copyrighted and subject to a open source license with restrictions.  See COPYING for details.
+#
+chip0 +15985.0 -31345.0  15 2048 4096 silicon CCD frame 115.0       10.0000 Group0 0 0 0 0 0 0 n_type 0
+chip1 +15985.0 +31345.0  15 2048 4096 silicon CCD frame 115.0       10.0000 Group0 0 0 0 0 0 0 n_type 0
+chip2 -15985.0 +31345.0  15 2048 4096 silicon CCD frame 115.0       10.0000 Group0 0 0 0 0 0 0 n_type 0
+chip3 -15985.0 -31345.0  15 2048 4096 silicon CCD frame 115.0       10.0000 Group0 0 0 0 0 0 0 n_type 0
+chip4 +32959.0      0.0  15 2048 4096 silicon CCD frame 115.0       10.0000 Group0 0 0 0 0 0 0 n_type 0
+chip5 -32959.0      0.0  15 2048 4096 silicon CCD frame 115.0       10.0000 Group0 0 0 0 0 0 0 n_type 0

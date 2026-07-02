@@ -1,0 +1,3 @@
+groundlevel            8
+latitude        53.344100
+longitude       -6.2675000

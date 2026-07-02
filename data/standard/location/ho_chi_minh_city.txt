@@ -1,0 +1,3 @@
+groundlevel           19
+latitude        10.823100
+longitude        106.62970

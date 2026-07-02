@@ -1,0 +1,3 @@
+groundlevel         2077
+latitude        30.671400
+longitude       -104.02190

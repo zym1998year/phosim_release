@@ -1,0 +1,3 @@
+groundlevel         1890
+latitude        24.020300
+longitude       -104.65760

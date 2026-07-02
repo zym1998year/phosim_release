@@ -1,0 +1,19 @@
+rightascension 0
+declination 0
+camtelangle 0.0
+camskyangle 0.0
+object 0 -0.060 0.00 16 ../sky/sed_flat.txt 0 0 0 0 0 0 sersicComplex 5.0 5.0 5.0 0.0 60.0 0.0 4.0 0.2 1000 1.0 0.0 10.0 0.0 0.0 0.0 none none
+object 0 -0.045 0.00 16 ../sky/sed_flat.txt 0 0 0 0 0 0 sersicComplex 5.0 4.0 4.0 0.0 60.0 0.0 4.0 0.2 1000 1.0 0.0 10.0 0.0 0.0 0.0 none none
+object 0 -0.030 0.00 16 ../sky/sed_flat.txt 0 0 0 0 0 0 sersicComplex 5.0 3.0 3.0 0.0 60.0 0.0 4.0 0.2 1000 1.0 0.0 10.0 0.0 0.0 0.0 none none
+object 0 -0.015 0.00 16 ../sky/sed_flat.txt 0 0 0 0 0 0 sersicComplex 5.0 2.0 2.0 0.0 60.0 0.0 4.0 0.2 1000 1.0 0.0 10.0 0.0 0.0 0.0 none none
+object 0 -0.00 0.00 16 ../sky/sed_flat.txt 0 0 0 0 0 0 sersicComplex 5.0 5.0 0.0 0.0 60.0 0.0 4.0 0.2 1000 1.0 0.0 10.0 0.0 0.0 0.0 none none
+object 0 -0.00 0.00 16 ../sky/sed_flat.txt 0 0 0 0 0 0 sersicDiskComplex 5.0 5.0 1.0 0.0 60.0 0.0 1.0 0.2 1000 1.0 0.0 10.0 0.0 0.0 0.0 none none
+object 0 0.015  0.02 16 ../sky/sed_flat.txt 0 0 0 0 0 0 sersicDiskComplex 5.0 5.0 1.0 0.0 60.0 0.0 1.0 0.2 1000 1.0 1.0 5.0 0.0 1.0 0.0 none none
+object 0 0.030  0.02 16 ../sky/sed_flat.txt 0 0 0 0 0 0 sersicDiskComplex 5.0 5.0 1.0 0.0 60.0 0.0 1.0 0.2 1000 1.0 1.0 10.0 0.0 1.0 0.0 none none
+object 0 0.045  0.02 16 ../sky/sed_flat.txt 0 0 0 0 0 0 sersicDiskComplex 5.0 5.0 1.0 0.0 60.0 0.0 1.0 0.2 1000 1.0 1.0 15.0 0.0 1.0 0.0 none none
+object 0 0.060  0.02 16 ../sky/sed_flat.txt 0 0 0 0 0 0 sersicDiskComplex 5.0 5.0 1.0 0.0 60.0 0.0 1.0 0.2 1000 1.0 1.0 20.0 0.0 1.0 0.0 none none
+object 0 0.015 -0.02 16 ../sky/sed_flat.txt 0 0 0 0 0 0 sersicDiskComplex 5.0 5.0 1.0 0.0 60.0 0.0 1.0 0.2 1000 1.0 1.0 5.0 10.0 1.0 0.0 none none
+object 0 0.030 -0.02 16 ../sky/sed_flat.txt 0 0 0 0 0 0 sersicDiskComplex 5.0 5.0 1.0 0.0 60.0 0.0 1.0 0.2 1000 1.0 1.0 10.0 10.0 1.0 0.0 none none
+object 0 0.045 -0.02 16 ../sky/sed_flat.txt 0 0 0 0 0 0 sersicDiskComplex 5.0 5.0 1.0 0.0 60.0 0.0 1.0 0.2 1000 1.0 1.0 15.0 10.0 1.0 0.0 none none
+object 0 0.060 -0.02 16 ../sky/sed_flat.txt 0 0 0 0 0 0 sersicDiskComplex 5.0 5.0 1.0 0.0 60.0 0.0 1.0 0.2 1000 1.0 1.0 20.0 10.0 1.0 0.0 none none
+object 0 0.060  0.00 16 ../sky/sed_flat.txt 0 0 0 0 0 0 sersicComplex 5.0 5.0 5.0 0.0 60.0 0.0 1.0 1.0 5 3.0 0.0 0.0 0.0 0.1 0.0 none none

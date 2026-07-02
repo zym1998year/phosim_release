@@ -1,0 +1,5 @@
+rightascension 0.0
+declination 0.0
+seed     1997
+obsid    1997
+object 0 0.0 0.0 20 ../sky/sed_flat.txt 0 0 0 0 0 0 star none none

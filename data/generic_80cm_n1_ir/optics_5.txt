@@ -1,0 +1,17 @@
+#
+# @package phosim
+# @brief phosim data file
+#
+# @brief Created by:
+# @author John R. Peterson (Purdue)
+#
+# @brief Modified by:
+#
+#  @warning Please treat results using PhoSim with caution as this project is in active development.
+#  @warning This material is copyrighted and subject to a open source license with restrictions.  See COPYING for details.
+#
+optics ks    0.8    6.0 0.5   13679.4697 1 1 0
+primary mirror    1600.0000      0.0000    400.0000     50.0000 -1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 protected_al air none
+filter  lens       -46.0000    704.0000     50.0000      0.0000 -1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 mko_ks sio2 none
+filter  lens       -45.0800      2.0000     50.0000      0.0000 -1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 lens_ar air none
+image   det          0.0000     94.0000     12.0000      0.0000  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 detector_ar air none

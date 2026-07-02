@@ -1,0 +1,3 @@
+groundlevel          760
+latitude       -23.550500
+longitude       -46.633300

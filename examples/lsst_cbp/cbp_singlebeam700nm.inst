@@ -1,0 +1,10 @@
+rightascension 0
+declination 0
+azimuth 0
+altitude 89
+vistime 15.0
+nsnap 1
+filter 2
+rotelpos 0.0
+rotskypos 0.0
+object 0 0.0 0.0 7 ../../examples/lsst_cbp/cbpNarrow700nmSED.txt 0 0 0 0 0 0 distortedSphere 2.0 8.2 0 0 0 0 0 0

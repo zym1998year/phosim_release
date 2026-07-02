@@ -1,0 +1,3 @@
+groundlevel         2527
+latitude        1.2078000
+longitude       -77.277200

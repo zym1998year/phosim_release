@@ -1,0 +1,3 @@
+groundlevel           45
+latitude        17.704100
+longitude        83.297700

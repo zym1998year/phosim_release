@@ -1,0 +1,1 @@
+chip	0.0 0.0	3.76 9576 6388 silicon CCD frame 3.0 10.0	Group0 0.0 0.0 0.0 0.0 0.0 0.0 sensor.txt 0.0 1

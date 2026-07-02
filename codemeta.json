@@ -1,0 +1,48 @@
+{
+    "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+    "@type": "SoftwareSourceCode",
+    "license": "https://spdx.org/licenses/GPL-3.0",
+    "codeRepository": "https://bitbucket.org/phosim/phosim_release/wiki/Home",
+    "name": "PhoSim",
+    "description": "PhoSim is a set of extremely fast photon Monte Carlo codes that calculate the ab initio physics of the atmosphere and a telescope & camera in order to simulate realistic optical/UV/IR/X-ray astronomical images.  PhoSim can also simulate any optical system that produces images (e.g. cameras, satellites, human eye).",
+    "referencePublication": "https://ui.adsabs.harvard.edu/abs/2015ApJS..218...14P , https://ui.adsabs.harvard.edu/abs/2019ApJ...873...98P , https://ui.adsabs.harvard.edu/abs/2019JATIS...5c8002B , https://ui.adsabs.harvard.edu/abs/2020ApJ...889..182P",
+    "keywords": [
+        "astronomy",
+        "photon",
+        "simulator",
+        "atmosphere",
+        "optics",
+        "telescope",
+        "camera"
+    ],
+    "programmingLanguage": [
+        "C++"
+    ],
+    "operatingSystem": [
+        "Linux",
+        "MacOS"
+    ],
+    "author": [
+        {
+            "@type": "Person",
+            "@id": "https://orcid.org/0000-0001-5471-9609",
+            "givenName": "John R.",
+            "familyName": "Peterson",
+            "email": "peters11@purdue.edu",
+            "affiliation": {
+                "@type": "Organization",
+                "name": "Department of Physics & Astronomy, Purdue University"
+            }
+        },
+        {
+            "@type": "Person",
+            "givenName": "J. Garrett",
+            "familyName": "Jernigan",
+            "email": "jgj@h-bar.com",
+            "affiliation": {
+                "@type": "Organization",
+                "name": "Space Sciences Laboratory, Berkeley University"
+            }
+        }
+    ]
+}

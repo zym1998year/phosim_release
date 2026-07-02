@@ -1,0 +1,3 @@
+groundlevel         1993
+latitude        10.432200
+longitude       -66.873900

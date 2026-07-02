@@ -1,0 +1,3 @@
+groundlevel          153
+latitude        37.979200
+longitude        23.716600

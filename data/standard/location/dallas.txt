@@ -1,0 +1,3 @@
+groundlevel          131
+latitude        32.776700
+longitude       -96.797000

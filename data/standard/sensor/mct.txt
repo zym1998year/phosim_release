@@ -1,0 +1,4 @@
+compositionHgCd 0.4595
+wellDepth 100000
+nbulk 1e12
+sensorTempNominal 37

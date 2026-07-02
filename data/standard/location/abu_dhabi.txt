@@ -1,0 +1,3 @@
+groundlevel           13
+latitude        24.476400
+longitude        54.370500

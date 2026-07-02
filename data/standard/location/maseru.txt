@@ -1,0 +1,3 @@
+groundlevel         1673
+latitude       -29.297600
+longitude        27.485400

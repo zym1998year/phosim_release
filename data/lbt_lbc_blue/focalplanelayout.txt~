@@ -1,0 +1,18 @@
+#
+# @package phosim
+# @brief phosim data file
+#
+# @brief Created by:
+# @author John R. Peterson (Purdue)
+#
+# @brief Modified by:
+#
+#  @warning Please treat results using PhoSim with caution as this project is in active development.
+#  @warning This material is copyrighted and subject to a open source license with restrictions.  See COPYING for details.
+#
+S1 28647.0	0.0       13.50000     2048     4608 silicon CCD frame 27.0       10.0000 Group0 0 0 0 0 0 0 n_type 0
+S2     0.0 	0.0       13.50000     2048     4608 silicon CCD frame 27.0       10.0000 Group0 0 0 0 0 0 0 n_type 0
+S3 -28647.0 	0.0	  13.50000     2048     4608 silicon CCD frame 27.0       10.0000 Group0 0 0 0 0 0 0 n_type 0
+S4  0.0 	45954.0   13.50000     2048     4608 silicon CCD frame 27.0       10.0000 Group0 0 0 0 0 0 0 n_type 0
+T1 46946.0 	0.0       13.50000     512    	2048 silicon CCD frame 27.0       10.0000 Group0 0 0 0 0 0 0 n_type 0
+T2 -46946.0 	0.0       13.50000     512      2048 silicon CCD frame 27.0       10.0000 Group0 0 0 0 0 0 0 n_type 0

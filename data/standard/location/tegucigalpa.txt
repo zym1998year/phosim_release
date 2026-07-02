@@ -1,0 +1,3 @@
+groundlevel          980
+latitude        14.082100
+longitude       -87.206300

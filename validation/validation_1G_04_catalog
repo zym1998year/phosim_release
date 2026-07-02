@@ -1,0 +1,18 @@
+rightascension 0
+declination 0
+azimuth 0
+altitude 57.5
+rotskypos 0
+rottelpos 0
+moonalt -90
+filter 1
+seed     1000
+humidity 0.456
+pressure 520
+temperature 20
+obsid 1804
+object 0 0.0 -1.41 36.0 ../../validation/sed_0.52.txt 0 0 0 0 0 0 point none none
+object 1 0.0  1.41 36.0 ../../validation/sed_0.52.txt 0 0 0 0 0 0 point none none
+object 2 1.41  0.0 36.0 ../../validation/sed_0.52.txt 0 0 0 0 0 0 point none none
+object 3 -1.41 0.0 36.0 ../../validation/sed_0.52.txt 0 0 0 0 0 0 point none none
+object 4 0.0 0.0 36.0 ../../validation/sed_0.52.txt 0 0 0 0 0 0 point none none

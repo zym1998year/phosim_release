@@ -1,0 +1,3 @@
+groundlevel           22
+latitude        30.057100
+longitude        31.227200

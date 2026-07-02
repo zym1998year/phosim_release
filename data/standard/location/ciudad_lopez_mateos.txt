@@ -1,0 +1,3 @@
+groundlevel         2280
+latitude        19.557900
+longitude       -99.256800

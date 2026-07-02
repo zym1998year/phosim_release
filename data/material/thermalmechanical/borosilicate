@@ -1,0 +1,6 @@
+heatCapacity 800
+density 2230.0
+thermalConductivity 1.2
+youngsModulus 6.3e10
+poissonRatio 0.2
+thermalExpansionCoefficient 3.3e-6

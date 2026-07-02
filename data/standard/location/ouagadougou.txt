@@ -1,0 +1,3 @@
+groundlevel          305
+latitude        12.356900
+longitude       -1.5352000

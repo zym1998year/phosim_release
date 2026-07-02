@@ -1,0 +1,3 @@
+groundlevel          938
+latitude        39.943900
+longitude        32.856000

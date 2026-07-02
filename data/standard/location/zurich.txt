@@ -1,0 +1,3 @@
+groundlevel          408
+latitude        47.374400
+longitude        8.5411000

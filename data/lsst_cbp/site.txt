@@ -1,0 +1,7 @@
+domeseeingmean 0.05
+domeseeingmedian 0.05
+groundlevel 2660.0
+xtellocation 164.813
+ytellocation -14.39
+latitude -30.66
+longitude -70.749

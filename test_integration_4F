@@ -1,0 +1,103 @@
+#!/bin/csh -f
+## @package ./phosim
+## @file ./phosim
+## @brief script to run all validation_4F scripts
+##
+## @brief Created by:
+## @author John R. Peterson (Purdue)
+##
+## @brief Modified by:
+## @author En-Hsin Peng (Purdue)
+## @author Caleb Remocaldo (Purdue)
+##
+## @warning This code is not fully validated
+## and not ready for full release.  Please
+## treat results with caution.
+
+#SECOND THREAD
+cd /Users/$USER/phosim_core ;
+./phosim validation/validation_4F_000_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_001_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_002_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_003_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_004_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_005_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_006_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_007_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_008_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_009_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_010_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_011_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_012_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_013_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_014_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_015_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_016_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_017_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_018_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_019_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_020_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_021_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_022_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_023_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_024_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_025_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_026_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_027_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_028_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_029_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_030_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_031_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_032_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_033_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_034_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_035_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_036_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_037_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi;
+./phosim validation/validation_4F_038_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_039_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_040_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_041_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_042_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_043_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_044_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_045_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_046_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_047_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_048_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_049_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_050_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_051_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_052_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_053_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_054_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_055_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_056_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_057_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_058_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_059_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_060_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_061_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_062_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_063_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_064_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_065_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_066_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_067_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_068_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_069_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_070_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_071_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_072_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_073_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_074_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_075_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_076_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_077_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_078_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_079_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_080_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_081_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_082_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_083_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 
+./phosim validation/validation_4F_084_catalog -c validation/validation_4F_commands -e 0 -o validation/ -i wiyn_odi; 

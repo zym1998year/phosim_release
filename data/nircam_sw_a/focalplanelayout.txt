@@ -1,0 +1,4 @@
+A1 18724 18724 18.0 2048 2048 MCT CMOS sequence 10.73677 8.0 Group0 0 0 0 0 0 0 sensor.txt 0.0
+A2 18724 -18724 18.0 2048 2048 MCT CMOS sequence 10.73677 8.0 Group0 0 0 0 0 0 0 sensor.txt 0.0
+A3 -18724 18724 18.0 2048 2048 MCT CMOS sequence 10.73677 8.0 Group0 0 0 0 0 0 0 sensor.txt 0.0
+A4 -18724 -18724 18.0 2048 2048 MCT CMOS sequence 10.73677 8.0 Group0 0 0 0 0 0 0 sensor.txt 0.0

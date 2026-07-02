@@ -1,0 +1,3 @@
+groundlevel         1920
+latitude        19.700600
+longitude       -101.18640

@@ -1,0 +1,15 @@
+#
+# @package phosim
+# @brief phosim data file
+#
+# @brief Created by:
+# @author John R. Peterson (Purdue)
+#
+# @brief Modified by:
+#
+#  @warning Please treat results using PhoSim with caution as this project is in active development.
+#  @warning This material is copyrighted and subject to a open source license with restrictions.  See COPYING for details.
+#
+optics none 0.30  1.20  0.5  48764.5 1 1 0
+primary	mirror	5588.0	0.0	139.7	0.0	-1.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0 0.0 0.0 0.0 0.0 0.0 0.0 none	vacuum none
+image	det	0.0	2794.0	15	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0 0.0 0.0 0.0 0.0 0.0 0.0 none	vacuum none

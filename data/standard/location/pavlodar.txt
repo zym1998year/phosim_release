@@ -1,0 +1,3 @@
+groundlevel          123
+latitude        52.300000
+longitude        76.950000

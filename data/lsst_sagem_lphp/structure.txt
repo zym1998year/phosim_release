@@ -1,0 +1,14 @@
+windjitter 2.5
+rotationjitter 1
+elevationjitter 0.02
+azimuthjitter 0.02
+windshake 0.05
+rotationconstraint 90.0
+crossx  7305  25  380.5 305.0 0.0    3540.0
+crossx  8665  25  380.5 305.0 -20.0 3540.0
+crossx  7305  25 -380.5 305.0 0.0    3540.0
+crossx  8665  25 -380.5 305.0 -20.0 3540.0
+crossy  7305  25  380.5 305.0 0.0    3540.0
+crossy  8665  25  380.5 305.0 -20.0 3540.0
+crossy  7305  25 -380.5 305.0 0.0    3540.0
+crossy  8665  25 -380.5 305.0 -20.0 3540.0

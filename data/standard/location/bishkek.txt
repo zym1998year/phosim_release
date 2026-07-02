@@ -1,0 +1,3 @@
+groundlevel          771
+latitude        42.867900
+longitude        74.598400

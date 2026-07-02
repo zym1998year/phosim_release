@@ -1,0 +1,4 @@
+wellDepth 100000
+nbulk -1e12
+siliconType 1
+sensorTempNominal 173

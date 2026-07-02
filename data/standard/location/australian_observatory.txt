@@ -1,0 +1,3 @@
+groundlevel         1164
+latitude       -33.796100
+longitude        151.14500

@@ -1,0 +1,10 @@
+rightascension 0
+declination 0
+azimuth 0
+altitude 89
+vistime 15.0
+nsnap 1
+filter 3
+rotelpos 0.0
+rotskypos 0.0
+includeobj cbp_chipgrid700nm.cat
