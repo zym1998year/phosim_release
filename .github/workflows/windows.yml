@@ -44,8 +44,12 @@ jobs:
           activate-environment: phosim-build
           python-version: "3.11"
 
+      # Call conda.exe directly: invoking the `mamba`/`conda` .bat wrappers from Git
+      # Bash silently swallowed the command (cmd.exe banner, exit 0, nothing installed).
       - name: Install dependencies
-        run: mamba install -y -n phosim-build cfitsio=4.4.0 fftw=3.3.10 zlib python=3.11 cmake ninja
+        run: |
+          "$CONDA/Scripts/conda.exe" install -y -n phosim-build cfitsio=4.4.0 fftw=3.3.10 zlib python=3.11 cmake ninja
+          "$CONDA/Scripts/conda.exe" list -n phosim-build | grep -E '^(cfitsio|fftw|zlib|cmake|ninja|python) '
 
       # Conda activation inside `bash -el` proved unreliable after msvc-dev-cmd rewrote
       # the job PATH (CONDA_PREFIX was empty at Configure time on the first run). Resolve
@@ -53,10 +57,7 @@ jobs:
       # later steps, instead of depending on the activation hook.
       - name: Expose conda env prefix
         run: |
-          # NOTE: do not use $CONDA here — with miniforge-version set, setup-miniconda
-          # installs a separate Miniforge root while $CONDA still points at the runner's
-          # stock Miniconda. `conda` on PATH in bash -el steps is the Miniforge one.
-          PREFIX_M="$(cygpath -m "$(conda info --base)")/envs/phosim-build"
+          PREFIX_M="$(cygpath -m "$("$CONDA/Scripts/conda.exe" info --base)")/envs/phosim-build"
           echo "CONDA_ENV_PREFIX=$PREFIX_M" >> "$GITHUB_ENV"
           echo "$(cygpath -w "$PREFIX_M")" >> "$GITHUB_PATH"
           echo "$(cygpath -w "$PREFIX_M/Library/bin")" >> "$GITHUB_PATH"
