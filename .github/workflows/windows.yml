@@ -41,26 +41,36 @@ jobs:
         with:
           miniforge-version: latest
           channels: conda-forge
+          activate-environment: phosim-build
           python-version: "3.11"
 
       - name: Install dependencies
-        run: mamba install -y cfitsio=4.4.0 fftw=3.3.10 zlib python=3.11 cmake ninja
+        run: mamba install -y -n phosim-build cfitsio=4.4.0 fftw=3.3.10 zlib python=3.11 cmake ninja
+
+      # Conda activation inside `bash -el` proved unreliable after msvc-dev-cmd rewrote
+      # the job PATH (CONDA_PREFIX was empty at Configure time on the first run). Resolve
+      # the env prefix explicitly from the runner-provided $CONDA and export it for all
+      # later steps, instead of depending on the activation hook.
+      - name: Expose conda env prefix
+        run: |
+          PREFIX_M="$(cygpath -m "$CONDA")/envs/phosim-build"
+          echo "CONDA_ENV_PREFIX=$PREFIX_M" >> "$GITHUB_ENV"
+          echo "$(cygpath -w "$PREFIX_M")" >> "$GITHUB_PATH"
+          echo "$(cygpath -w "$PREFIX_M/Library/bin")" >> "$GITHUB_PATH"
+          echo "$(cygpath -w "$PREFIX_M/Scripts")" >> "$GITHUB_PATH"
+          ls "$PREFIX_M/Library/include/fitsio.h" "$PREFIX_M/Library/bin/cmake.exe"
 
       - name: Configure
-        run: cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$CONDA_PREFIX/Library"
+        run: cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$CONDA_ENV_PREFIX/Library"
 
       - name: Build
         run: cmake --build build --parallel
 
       - name: CTest
-        run: |
-          export PATH="$CONDA_PREFIX/Library/bin:$PATH"
-          ctest --test-dir build --output-on-failure -C Release
+        run: ctest --test-dir build --output-on-failure -C Release
 
       - name: Smoke test - examples/star (single process)
-        run: |
-          export PATH="$CONDA_PREFIX/Library/bin:$PATH"
-          python phosim.py examples/star -c examples/nobackground -p 1 -t 1
+        run: python phosim.py examples/star -c examples/nobackground -p 1 -t 1
 
       - name: Assert FITS output produced
         run: |
